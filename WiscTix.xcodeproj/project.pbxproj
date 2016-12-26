@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		026A50891E10C1A7001FFDC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50881E10C1A7001FFDC1 /* AppDelegate.swift */; };
-		026A508B1E10C1A7001FFDC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A508A1E10C1A7001FFDC1 /* ViewController.swift */; };
 		026A508E1E10C1A8001FFDC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 026A508C1E10C1A8001FFDC1 /* Main.storyboard */; };
 		026A50901E10C1A8001FFDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 026A508F1E10C1A8001FFDC1 /* Assets.xcassets */; };
 		026A50931E10C1A8001FFDC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 026A50911E10C1A8001FFDC1 /* LaunchScreen.storyboard */; };
 		026A509E1E10C1A9001FFDC1 /* WiscTixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A509D1E10C1A9001FFDC1 /* WiscTixTests.swift */; };
 		026A50A91E10C1A9001FFDC1 /* WiscTixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50A81E10C1A9001FFDC1 /* WiscTixUITests.swift */; };
+		026A50B71E10C1EE001FFDC1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 026A50B61E10C1EE001FFDC1 /* GoogleService-Info.plist */; };
+		026A50BA1E10C2FD001FFDC1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */; };
+		026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */; };
+		026A50BE1E10C32F001FFDC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50BD1E10C32F001FFDC1 /* HomeViewController.swift */; };
+		B97C8CE0B2B40F294F281EBC /* Pods_WiscTixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D131EC4B1CEADFE571EAB3C9 /* Pods_WiscTixTests.framework */; };
+		E1296F3E0B78F71FD4BDAF25 /* Pods_WiscTixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7077EA4E8C7E0875DA342FDC /* Pods_WiscTixUITests.framework */; };
+		ECF35F26CB7F1E95EC8D1A31 /* Pods_WiscTix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +42,6 @@
 /* Begin PBXFileReference section */
 		026A50851E10C1A7001FFDC1 /* WiscTix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiscTix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		026A50881E10C1A7001FFDC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		026A508A1E10C1A7001FFDC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		026A508D1E10C1A8001FFDC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		026A508F1E10C1A8001FFDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		026A50921E10C1A8001FFDC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +52,19 @@
 		026A50A41E10C1A9001FFDC1 /* WiscTixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WiscTixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		026A50A81E10C1A9001FFDC1 /* WiscTixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiscTixUITests.swift; sourceTree = "<group>"; };
 		026A50AA1E10C1A9001FFDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		026A50B61E10C1EE001FFDC1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		026A50BD1E10C32F001FFDC1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		13A74635B8F541A22E1A5FD6 /* Pods-WiscTixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTixTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTixTests/Pods-WiscTixTests.release.xcconfig"; sourceTree = "<group>"; };
+		1C8A2F512C7082E2A698CB4F /* Pods-WiscTix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTix.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTix/Pods-WiscTix.release.xcconfig"; sourceTree = "<group>"; };
+		3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WiscTix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7077EA4E8C7E0875DA342FDC /* Pods_WiscTixUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WiscTixUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		710C788CF2FF195CB42E4767 /* Pods-WiscTixTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTixTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTixTests/Pods-WiscTixTests.debug.xcconfig"; sourceTree = "<group>"; };
+		789A9000794E953A0288CC1A /* Pods-WiscTix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTix.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTix/Pods-WiscTix.debug.xcconfig"; sourceTree = "<group>"; };
+		B725B9D54C9CA0ACAFE0B16A /* Pods-WiscTixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTixUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTixUITests/Pods-WiscTixUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CE67C2F32D9E971E64604567 /* Pods-WiscTixUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTixUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTixUITests/Pods-WiscTixUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D131EC4B1CEADFE571EAB3C9 /* Pods_WiscTixTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WiscTixTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECF35F26CB7F1E95EC8D1A31 /* Pods_WiscTix.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B97C8CE0B2B40F294F281EBC /* Pods_WiscTixTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1296F3E0B78F71FD4BDAF25 /* Pods_WiscTixUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +102,8 @@
 				026A509C1E10C1A9001FFDC1 /* WiscTixTests */,
 				026A50A71E10C1A9001FFDC1 /* WiscTixUITests */,
 				026A50861E10C1A7001FFDC1 /* Products */,
+				9EFFEE27B5157B2BD4CEFE8E /* Pods */,
+				C4BC1E3FB918E3440A261D40 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,11 +121,12 @@
 			isa = PBXGroup;
 			children = (
 				026A50881E10C1A7001FFDC1 /* AppDelegate.swift */,
-				026A508A1E10C1A7001FFDC1 /* ViewController.swift */,
+				026A50B81E10C2E7001FFDC1 /* ViewControllers */,
 				026A508C1E10C1A8001FFDC1 /* Main.storyboard */,
 				026A508F1E10C1A8001FFDC1 /* Assets.xcassets */,
 				026A50911E10C1A8001FFDC1 /* LaunchScreen.storyboard */,
 				026A50941E10C1A8001FFDC1 /* Info.plist */,
+				026A50B61E10C1EE001FFDC1 /* GoogleService-Info.plist */,
 			);
 			path = WiscTix;
 			sourceTree = "<group>";
@@ -125,6 +149,39 @@
 			path = WiscTixUITests;
 			sourceTree = "<group>";
 		};
+		026A50B81E10C2E7001FFDC1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */,
+				026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */,
+				026A50BD1E10C32F001FFDC1 /* HomeViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9EFFEE27B5157B2BD4CEFE8E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				789A9000794E953A0288CC1A /* Pods-WiscTix.debug.xcconfig */,
+				1C8A2F512C7082E2A698CB4F /* Pods-WiscTix.release.xcconfig */,
+				710C788CF2FF195CB42E4767 /* Pods-WiscTixTests.debug.xcconfig */,
+				13A74635B8F541A22E1A5FD6 /* Pods-WiscTixTests.release.xcconfig */,
+				CE67C2F32D9E971E64604567 /* Pods-WiscTixUITests.debug.xcconfig */,
+				B725B9D54C9CA0ACAFE0B16A /* Pods-WiscTixUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C4BC1E3FB918E3440A261D40 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */,
+				D131EC4B1CEADFE571EAB3C9 /* Pods_WiscTixTests.framework */,
+				7077EA4E8C7E0875DA342FDC /* Pods_WiscTixUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +189,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 026A50AD1E10C1A9001FFDC1 /* Build configuration list for PBXNativeTarget "WiscTix" */;
 			buildPhases = (
+				BB1DC496906C6B025C0D693F /* 📦 Check Pods Manifest.lock */,
 				026A50811E10C1A7001FFDC1 /* Sources */,
 				026A50821E10C1A7001FFDC1 /* Frameworks */,
 				026A50831E10C1A7001FFDC1 /* Resources */,
+				81BA8997D29D832DB85A4546 /* 📦 Embed Pods Frameworks */,
+				A71FF2A2DBCDC8D58BC9D1D3 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +209,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 026A50B01E10C1A9001FFDC1 /* Build configuration list for PBXNativeTarget "WiscTixTests" */;
 			buildPhases = (
+				A073E0251249EED1D48A354F /* 📦 Check Pods Manifest.lock */,
 				026A50951E10C1A9001FFDC1 /* Sources */,
 				026A50961E10C1A9001FFDC1 /* Frameworks */,
 				026A50971E10C1A9001FFDC1 /* Resources */,
+				E9EE59A94F80C1A838BAABD0 /* 📦 Embed Pods Frameworks */,
+				60E1D579306330EB36E8BBDC /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +230,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 026A50B31E10C1A9001FFDC1 /* Build configuration list for PBXNativeTarget "WiscTixUITests" */;
 			buildPhases = (
+				CDC2CE23C9AC1998609E8011 /* 📦 Check Pods Manifest.lock */,
 				026A50A01E10C1A9001FFDC1 /* Sources */,
 				026A50A11E10C1A9001FFDC1 /* Frameworks */,
 				026A50A21E10C1A9001FFDC1 /* Resources */,
+				D3977C74EE0E9380D9DE2A5C /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -236,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				026A50931E10C1A8001FFDC1 /* LaunchScreen.storyboard in Resources */,
+				026A50B71E10C1EE001FFDC1 /* GoogleService-Info.plist in Resources */,
 				026A50901E10C1A8001FFDC1 /* Assets.xcassets in Resources */,
 				026A508E1E10C1A8001FFDC1 /* Main.storyboard in Resources */,
 			);
@@ -257,13 +323,138 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		60E1D579306330EB36E8BBDC /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WiscTixTests/Pods-WiscTixTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81BA8997D29D832DB85A4546 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WiscTix/Pods-WiscTix-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A073E0251249EED1D48A354F /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A71FF2A2DBCDC8D58BC9D1D3 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WiscTix/Pods-WiscTix-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB1DC496906C6B025C0D693F /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CDC2CE23C9AC1998609E8011 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D3977C74EE0E9380D9DE2A5C /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WiscTixUITests/Pods-WiscTixUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9EE59A94F80C1A838BAABD0 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WiscTixTests/Pods-WiscTixTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		026A50811E10C1A7001FFDC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				026A508B1E10C1A7001FFDC1 /* ViewController.swift in Sources */,
+				026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */,
+				026A50BA1E10C2FD001FFDC1 /* LoginViewController.swift in Sources */,
 				026A50891E10C1A7001FFDC1 /* AppDelegate.swift in Sources */,
+				026A50BE1E10C32F001FFDC1 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +604,7 @@
 		};
 		026A50AE1E10C1A9001FFDC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 789A9000794E953A0288CC1A /* Pods-WiscTix.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
@@ -426,6 +618,7 @@
 		};
 		026A50AF1E10C1A9001FFDC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C8A2F512C7082E2A698CB4F /* Pods-WiscTix.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
@@ -439,6 +632,7 @@
 		};
 		026A50B11E10C1A9001FFDC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 710C788CF2FF195CB42E4767 /* Pods-WiscTixTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -454,6 +648,7 @@
 		};
 		026A50B21E10C1A9001FFDC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13A74635B8F541A22E1A5FD6 /* Pods-WiscTixTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -469,6 +664,7 @@
 		};
 		026A50B41E10C1A9001FFDC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE67C2F32D9E971E64604567 /* Pods-WiscTixUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
@@ -483,6 +679,7 @@
 		};
 		026A50B51E10C1A9001FFDC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B725B9D54C9CA0ACAFE0B16A /* Pods-WiscTixUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
@@ -514,6 +711,7 @@
 				026A50AF1E10C1A9001FFDC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		026A50B01E10C1A9001FFDC1 /* Build configuration list for PBXNativeTarget "WiscTixTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +720,7 @@
 				026A50B21E10C1A9001FFDC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		026A50B31E10C1A9001FFDC1 /* Build configuration list for PBXNativeTarget "WiscTixUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +729,7 @@
 				026A50B51E10C1A9001FFDC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
