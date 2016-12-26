@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var nameTextField: UITextField!
@@ -23,11 +23,43 @@ class SignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataRef = FIRDatabase.database().reference()
+        emailTextField.delegate = self
+        nameTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField == emailTextField) {
+            emailTextField.resignFirstResponder()
+            nameTextField.becomeFirstResponder()
+        } else if (textField == nameTextField) {
+            nameTextField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else if (textField == passwordTextField) {
+            passwordTextField.resignFirstResponder()
+            confirmPasswordTextField.becomeFirstResponder()
+        } else if (textField == confirmPasswordTextField) {
+            confirmPasswordTextField.resignFirstResponder()
+            self.signUp()
+        }
+        
+        
+        return true
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
     @IBAction func signUpPressed(_ sender: Any) {
         
+        signUp()
+        
+    }
+    
+    func signUp() {
+    
         //Check to make sure the credentials are legit
         
         if !(isValidEmail(testStr: emailTextField.text!)) {
@@ -52,7 +84,7 @@ class SignupViewController: UIViewController {
                 self.showError(errorMessage: error!.localizedDescription)
                 
             } else if let user = user {
-            
+                
                 let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
                 changeRequest?.displayName = self.nameTextField.text!
                 
@@ -60,7 +92,7 @@ class SignupViewController: UIViewController {
                 self.dataRef.child("users").child(user.uid).setValue(userInfo)
                 user.sendEmailVerification(completion: { (error) in
                     if (error != nil) {
-                       print(error!.localizedDescription)
+                        print(error!.localizedDescription)
                     }
                 })
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginVc")
@@ -70,8 +102,6 @@ class SignupViewController: UIViewController {
         })
         
     }
-    
-    
     
     
     func isValidPassword(password: String) -> Bool {

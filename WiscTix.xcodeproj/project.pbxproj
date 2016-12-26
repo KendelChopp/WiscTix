@@ -16,7 +16,10 @@
 		026A50B71E10C1EE001FFDC1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 026A50B61E10C1EE001FFDC1 /* GoogleService-Info.plist */; };
 		026A50BA1E10C2FD001FFDC1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */; };
 		026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */; };
-		026A50BE1E10C32F001FFDC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50BD1E10C32F001FFDC1 /* HomeViewController.swift */; };
+		026A50C01E10D7DC001FFDC1 /* ListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */; };
+		026A50C41E10DB61001FFDC1 /* TicketListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */; };
+		0284788B1E11799B00CC4A03 /* ListingMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */; };
+		0284788E1E117DD000CC4A03 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788D1E117DD000CC4A03 /* Game.swift */; };
 		B97C8CE0B2B40F294F281EBC /* Pods_WiscTixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D131EC4B1CEADFE571EAB3C9 /* Pods_WiscTixTests.framework */; };
 		E1296F3E0B78F71FD4BDAF25 /* Pods_WiscTixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7077EA4E8C7E0875DA342FDC /* Pods_WiscTixUITests.framework */; };
 		ECF35F26CB7F1E95EC8D1A31 /* Pods_WiscTix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */; };
@@ -55,7 +58,10 @@
 		026A50B61E10C1EE001FFDC1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		026A50BD1E10C32F001FFDC1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingsViewController.swift; sourceTree = "<group>"; };
+		026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketListingCell.swift; sourceTree = "<group>"; };
+		0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingMakerViewController.swift; sourceTree = "<group>"; };
+		0284788D1E117DD000CC4A03 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		13A74635B8F541A22E1A5FD6 /* Pods-WiscTixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTixTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTixTests/Pods-WiscTixTests.release.xcconfig"; sourceTree = "<group>"; };
 		1C8A2F512C7082E2A698CB4F /* Pods-WiscTix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTix.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTix/Pods-WiscTix.release.xcconfig"; sourceTree = "<group>"; };
 		3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WiscTix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,10 +127,12 @@
 			isa = PBXGroup;
 			children = (
 				026A50881E10C1A7001FFDC1 /* AppDelegate.swift */,
+				0284788C1E117DB900CC4A03 /* Objects */,
 				026A50B81E10C2E7001FFDC1 /* ViewControllers */,
-				026A508C1E10C1A8001FFDC1 /* Main.storyboard */,
 				026A508F1E10C1A8001FFDC1 /* Assets.xcassets */,
+				026A50C21E10DB3C001FFDC1 /* Cells */,
 				026A50911E10C1A8001FFDC1 /* LaunchScreen.storyboard */,
+				026A508C1E10C1A8001FFDC1 /* Main.storyboard */,
 				026A50941E10C1A8001FFDC1 /* Info.plist */,
 				026A50B61E10C1EE001FFDC1 /* GoogleService-Info.plist */,
 			);
@@ -154,9 +162,26 @@
 			children = (
 				026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */,
 				026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */,
-				026A50BD1E10C32F001FFDC1 /* HomeViewController.swift */,
+				026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */,
+				0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		026A50C21E10DB3C001FFDC1 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		0284788C1E117DB900CC4A03 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				0284788D1E117DD000CC4A03 /* Game.swift */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 		9EFFEE27B5157B2BD4CEFE8E /* Pods */ = {
@@ -451,10 +476,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0284788B1E11799B00CC4A03 /* ListingMakerViewController.swift in Sources */,
 				026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */,
+				0284788E1E117DD000CC4A03 /* Game.swift in Sources */,
 				026A50BA1E10C2FD001FFDC1 /* LoginViewController.swift in Sources */,
 				026A50891E10C1A7001FFDC1 /* AppDelegate.swift in Sources */,
-				026A50BE1E10C32F001FFDC1 /* HomeViewController.swift in Sources */,
+				026A50C01E10D7DC001FFDC1 /* ListingsViewController.swift in Sources */,
+				026A50C41E10DB61001FFDC1 /* TicketListingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
