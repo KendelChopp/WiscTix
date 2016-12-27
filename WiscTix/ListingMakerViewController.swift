@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet var datePickerView: UIPickerView!
@@ -78,8 +79,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         let price = self.priceLabel.text!
         let message = "Please confirm that you are selling a ticket for \(sportString) vs. \(opponent) on \(date) for \(price)."
         let actionSheet = UIAlertController(title: "Post Ticket", message: message, preferredStyle: .alert)
-        
-        
+       
         actionSheet.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
            self.createListing()
         }))
@@ -95,8 +95,29 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     func createListing() {
-        
+        let sportString = sport.rawValue
+        let opponent = self.dateList[self.datePickerView.selectedRow(inComponent: 0)].opponent as String
+        let date = self.dateList[self.datePickerView.selectedRow(inComponent: 0)].date as String
+        let time = self.dateList[self.datePickerView.selectedRow(inComponent: 0)].time as String
+        let today = NSDate()
     
+        let calendar = NSCalendar.current
+        let hour = calendar.component(.hour, from: today as Date)
+        let minutes = calendar.component(.minute, from: today as Date)
+        let day = calendar.component(Calendar.Component.day, from: today as Date)
+        let month = calendar.component(.month, from: today as Date)
+        let year = calendar.component(.year, from: today as Date)
+        let userID = FIRAuth.auth()!.currentUser!.uid as String
+        //let postID = "\(userID)-BREAK-\(day)-\(month)-\(year)-\(hour)-\(minutes)"
+        let dateAdded = "\(day)-\(month)-\(year)-\(hour)-\(minutes)"
+        let gameInfo: [String : Any] = ["date" : date, "opponent" : opponent, "price" : self.price, "time" : time, "sport" : sportString, "dateAdded" : dateAdded, "userID" : userID]
+        let dataRef = FIRDatabase.database().reference()
+        let postDataRef = dataRef.child("posts").childByAutoId()
+        postDataRef.setValue(gameInfo)
+       // dataRef.child("posts").child(postID).setValue(gameInfo)
+        dataRef.child("users").child(userID).child("posts").childByAutoId().setValue(postDataRef.key)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar")
+        self.present(vc, animated: true, completion: nil)
     }
     
     

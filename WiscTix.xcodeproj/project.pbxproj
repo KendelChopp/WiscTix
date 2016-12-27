@@ -20,6 +20,12 @@
 		026A50C41E10DB61001FFDC1 /* TicketListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */; };
 		0284788B1E11799B00CC4A03 /* ListingMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */; };
 		0284788E1E117DD000CC4A03 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788D1E117DD000CC4A03 /* Game.swift */; };
+		028478901E11951100CC4A03 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788F1E11951100CC4A03 /* Listing.swift */; };
+		028478921E12067500CC4A03 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028478911E12067500CC4A03 /* ChatViewController.swift */; };
+		028478941E12096300CC4A03 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028478931E12096300CC4A03 /* ChatListViewController.swift */; };
+		028478961E120A9B00CC4A03 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028478951E120A9B00CC4A03 /* ConversationTableViewCell.swift */; };
+		028478981E120B3B00CC4A03 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028478971E120B3B00CC4A03 /* Conversation.swift */; };
+		0284789A1E120EB300CC4A03 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028478991E120EB300CC4A03 /* PostViewController.swift */; };
 		B97C8CE0B2B40F294F281EBC /* Pods_WiscTixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D131EC4B1CEADFE571EAB3C9 /* Pods_WiscTixTests.framework */; };
 		E1296F3E0B78F71FD4BDAF25 /* Pods_WiscTixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7077EA4E8C7E0875DA342FDC /* Pods_WiscTixUITests.framework */; };
 		ECF35F26CB7F1E95EC8D1A31 /* Pods_WiscTix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */; };
@@ -62,6 +68,12 @@
 		026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketListingCell.swift; sourceTree = "<group>"; };
 		0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingMakerViewController.swift; sourceTree = "<group>"; };
 		0284788D1E117DD000CC4A03 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		0284788F1E11951100CC4A03 /* Listing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		028478911E12067500CC4A03 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		028478931E12096300CC4A03 /* ChatListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		028478951E120A9B00CC4A03 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		028478971E120B3B00CC4A03 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		028478991E120EB300CC4A03 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		13A74635B8F541A22E1A5FD6 /* Pods-WiscTixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTixTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTixTests/Pods-WiscTixTests.release.xcconfig"; sourceTree = "<group>"; };
 		1C8A2F512C7082E2A698CB4F /* Pods-WiscTix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTix.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTix/Pods-WiscTix.release.xcconfig"; sourceTree = "<group>"; };
 		3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WiscTix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +176,9 @@
 				026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */,
 				026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */,
 				0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */,
+				028478911E12067500CC4A03 /* ChatViewController.swift */,
+				028478931E12096300CC4A03 /* ChatListViewController.swift */,
+				028478991E120EB300CC4A03 /* PostViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -172,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */,
+				028478951E120A9B00CC4A03 /* ConversationTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -180,6 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				0284788D1E117DD000CC4A03 /* Game.swift */,
+				0284788F1E11951100CC4A03 /* Listing.swift */,
+				028478971E120B3B00CC4A03 /* Conversation.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -476,12 +494,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				028478981E120B3B00CC4A03 /* Conversation.swift in Sources */,
 				0284788B1E11799B00CC4A03 /* ListingMakerViewController.swift in Sources */,
 				026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */,
+				0284789A1E120EB300CC4A03 /* PostViewController.swift in Sources */,
+				028478901E11951100CC4A03 /* Listing.swift in Sources */,
 				0284788E1E117DD000CC4A03 /* Game.swift in Sources */,
+				028478941E12096300CC4A03 /* ChatListViewController.swift in Sources */,
+				028478961E120A9B00CC4A03 /* ConversationTableViewCell.swift in Sources */,
 				026A50BA1E10C2FD001FFDC1 /* LoginViewController.swift in Sources */,
 				026A50891E10C1A7001FFDC1 /* AppDelegate.swift in Sources */,
 				026A50C01E10D7DC001FFDC1 /* ListingsViewController.swift in Sources */,
+				028478921E12067500CC4A03 /* ChatViewController.swift in Sources */,
 				026A50C41E10DB61001FFDC1 /* TicketListingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
