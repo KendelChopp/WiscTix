@@ -17,5 +17,6 @@ class Listing: NSObject {
     var price: Int!
     var postID: String!
     var userID: String!
+    var name: String!
     
 }

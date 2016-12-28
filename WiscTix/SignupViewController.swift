@@ -13,7 +13,6 @@ import FirebaseDatabase
 class SignupViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var nameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var confirmPasswordTextField: UITextField!
     
@@ -24,7 +23,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         dataRef = FIRDatabase.database().reference()
         emailTextField.delegate = self
-        nameTextField.delegate = self
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self
         // Do any additional setup after loading the view.
@@ -33,9 +31,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == emailTextField) {
             emailTextField.resignFirstResponder()
-            nameTextField.becomeFirstResponder()
-        } else if (textField == nameTextField) {
-            nameTextField.resignFirstResponder()
             passwordTextField.becomeFirstResponder()
         } else if (textField == passwordTextField) {
             passwordTextField.resignFirstResponder()
@@ -65,9 +60,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         if !(isValidEmail(testStr: emailTextField.text!)) {
             showError(errorMessage: "Please enter a valid email @wisc.edu.")
         }
-        if !(isValidName(name: nameTextField.text!)) {
-            showError(errorMessage: "Please input your real name.")
-        }
         if !(isValidPassword(password: passwordTextField.text!)) {
             showError(errorMessage: "Please enter a password with 6-25 characters.")
         }
@@ -75,6 +67,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             showError(errorMessage: "The passwords you entered do not match.")
         }
         
+        var token = emailTextField.text!.components(separatedBy: "@")
+        let name = token[0]
         //Create the user
         
         FIRAuth.auth()?.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
@@ -85,10 +79,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 
             } else if let user = user {
                 
-                let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
-                changeRequest?.displayName = self.nameTextField.text!
-                
-                let userInfo: [String : Any] = ["uid" : user.uid, "fullName" : self.nameTextField.text!]
+                //let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                //changeRequest?.displayName = name
+                user.profileChangeRequest().displayName = name
+                let userInfo: [String : Any] = ["uid" : user.uid, "name" : name]
                 self.dataRef.child("users").child(user.uid).setValue(userInfo)
                 user.sendEmailVerification(completion: { (error) in
                     if (error != nil) {

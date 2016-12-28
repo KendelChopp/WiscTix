@@ -18,11 +18,13 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
     var dateList = [Game]()
     var sport: Sport!
     var price = 0
+    var userName: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         datePickerView.delegate = self
         datePickerView.dataSource = self
+        self.getUserName()
         //getGames()
         // Do any additional setup after loading the view.
     }
@@ -108,9 +110,10 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         let month = calendar.component(.month, from: today as Date)
         let year = calendar.component(.year, from: today as Date)
         let userID = FIRAuth.auth()!.currentUser!.uid as String
+       
         //let postID = "\(userID)-BREAK-\(day)-\(month)-\(year)-\(hour)-\(minutes)"
-        let dateAdded = "\(day)-\(month)-\(year)-\(hour)-\(minutes)"
-        let gameInfo: [String : Any] = ["date" : date, "opponent" : opponent, "price" : self.price, "time" : time, "sport" : sportString, "dateAdded" : dateAdded, "userID" : userID]
+        let dateAdded = "\(month)-\(day)-\(year)-\(hour)-\(minutes)"
+        let gameInfo: [String : Any] = ["date" : date, "opponent" : opponent, "price" : self.price, "time" : time, "sport" : sportString, "dateAdded" : dateAdded, "userID" : userID, "name" : self.userName ?? "ERROR"]
         let dataRef = FIRDatabase.database().reference()
         let postDataRef = dataRef.child("posts").childByAutoId()
         postDataRef.setValue(gameInfo)
@@ -120,5 +123,17 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         self.present(vc, animated: true, completion: nil)
     }
     
+    func getUserName()  {
+        let ref = FIRDatabase.database().reference().child("users").child(FIRAuth.auth()!.currentUser!.uid)
+      
+        ref.queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? [String : AnyObject] {
+                if let nameValue = value["name"] as? String {
+                    self.userName = nameValue
+                }
+            }
+        })
+       
+    }
     
 }

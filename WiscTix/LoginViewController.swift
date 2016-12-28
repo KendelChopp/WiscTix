@@ -73,6 +73,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     }
     
+    
     func showError(errorMessage: String) {
         let alert = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.destructive, handler: nil))

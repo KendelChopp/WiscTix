@@ -13,10 +13,12 @@ import FirebaseAuth
 class PostViewController: UIViewController {
 
     var posterID: String!
+    var posterName: String!
+    var userName: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.getUserName()
         // Do any additional setup after loading the view.
     }
 
@@ -25,6 +27,7 @@ class PostViewController: UIViewController {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "chatVc") as! ChatViewController
         let ref = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()!.currentUser!.uid
+        let pOneName = self.userName
         let userRef = ref.child("users").child(uid).child("conversations")
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(self.posterID) {
@@ -34,7 +37,7 @@ class PostViewController: UIViewController {
                 }
             } else {
                 //create new convo
-                let values = ["personOne" : uid, "personTwo" : self.posterID]
+                let values = ["personOne" : uid, "personTwo" : self.posterID, "personOneName" : pOneName ?? "ERROR", "personTwoName" : self.posterName]
                 let idRef = ref.child("conversations").childByAutoId()
                 idRef.setValue(values)
                 userRef.child(self.posterID).setValue(idRef.key)
@@ -44,8 +47,20 @@ class PostViewController: UIViewController {
         })
         vc.senderId = posterID
         vc.senderDisplayName = "Kenny C"
-    
+        vc.senderName = "Kendel.example"
         self.present(vc, animated: true, completion: nil)
     }
-
+    
+    func getUserName()  {
+        let ref = FIRDatabase.database().reference().child("users").child(FIRAuth.auth()!.currentUser!.uid)
+        
+        ref.queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? [String : AnyObject] {
+                if let nameValue = value["name"] as? String {
+                    self.userName = nameValue
+                }
+            }
+        })
+        
+    }
 }

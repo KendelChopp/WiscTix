@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class ListingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -46,6 +47,8 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
+       try! FIRAuth.auth()?.signOut()
+        
     }
     
     func loadTickets() {
@@ -56,7 +59,7 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
             for (key, value) in postList {
                 let ticket = Listing()
                 ticket.postID = key
-                if let date = value["date"] as? String, let opponent = value["opponent"] as? String, let time = value["time"] as? String, let price = value["price"] as? Int, let sportString = value["sport"] as? String, let userID = value["userID"] as? String {
+                if let date = value["date"] as? String, let opponent = value["opponent"] as? String, let time = value["time"] as? String, let price = value["price"] as? Int, let sportString = value["sport"] as? String, let userID = value["userID"] as? String, let name = value["name"] as? String {
                     let sport = Sport(rawValue: sportString)
                     ticket.sport = sport
                     ticket.date = date
@@ -64,6 +67,7 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
                     ticket.opponent = opponent
                     ticket.time = time
                     ticket.userID = userID
+                    ticket.name = name
                     self.tickets.append(ticket)
                 }
             }
@@ -92,6 +96,7 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postVc") as! PostViewController
         vc.posterID = self.tickets[indexPath.row].userID
+        vc.posterName = self.tickets[indexPath.row].name
         self.present(vc, animated: true, completion: nil)
     }
     
