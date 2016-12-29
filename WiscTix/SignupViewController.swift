@@ -16,6 +16,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var confirmPasswordTextField: UITextField!
     
+    @IBOutlet var signUpButton: UIButton!
     var dataRef: FIRDatabaseReference!
     
     
@@ -25,6 +26,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self
+        self.signUpButton.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
     
@@ -70,7 +72,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         var token = emailTextField.text!.components(separatedBy: "@")
         let name = token[0]
         //Create the user
-        
+        let today = NSDate()
+        let calendar = NSCalendar.current
+        let day = calendar.component(Calendar.Component.day, from: today as Date)
+        let month = calendar.component(.month, from: today as Date)
+        let year = calendar.component(.year, from: today as Date)
         FIRAuth.auth()?.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
             
             if error != nil {
@@ -82,7 +88,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 //let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
                 //changeRequest?.displayName = name
                 user.profileChangeRequest().displayName = name
-                let userInfo: [String : Any] = ["uid" : user.uid, "name" : name]
+                let userInfo: [String : Any] = ["uid" : user.uid, "name" : name, "joinDate" : "\(month)-\(day)-\(year)"]
                 self.dataRef.child("users").child(user.uid).setValue(userInfo)
                 user.sendEmailVerification(completion: { (error) in
                     if (error != nil) {

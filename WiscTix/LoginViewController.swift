@@ -14,12 +14,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
+    @IBOutlet var loginButton: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        self.loginButton.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
 
@@ -60,7 +62,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.showError(errorMessage: "Your email is not verified!")
                     
                 } else {
-                    
+                     UserDefaults.standard.set(true, forKey: "loggedIn")
                     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar")
                     self.present(vc, animated: true, completion: nil)
                     

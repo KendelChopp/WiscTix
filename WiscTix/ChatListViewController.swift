@@ -18,55 +18,78 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hidesBottomBarWhenPushed = true
+        self.automaticallyAdjustsScrollViewInsets = false
         self.conversationTableView.dataSource = self
         self.conversationTableView.delegate = self
-        self.loadConversations{ (conversationID) in
-            for id in conversationID {
-             
-                let ref = FIRDatabase.database().reference()
-                ref.child("conversations").child(id).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
-                
-                   
-                    if let convo = snapshot.value as? [String : AnyObject] {
-                     
-                        let conversation = Conversation()
-                        conversation.conversationID = id
-                        if let name = convo["personOneName"] as? String{
-                            conversation.name = name
-                        }
-                        
-                        self.Conversations.append(conversation)
-                        self.conversationTableView.reloadData()
-                    }
-                })
-                ref.removeAllObservers()
-            }
-     
-            
+        self.conversationTableView.rowHeight = 90
         
-        }
-        
+        self.loadConversations()
         
         // Do any additional setup after loading the view.
     }
-
     
-    func loadConversations(completion:@escaping (Array<String>) -> Void) -> Void {
+    override func viewWillAppear(_ animated: Bool) {
+        if ( self.conversationTableView.indexPathForSelectedRow != nil) {
+          self.conversationTableView.deselectRow(at: self.conversationTableView.indexPathForSelectedRow!, animated: false)
+        }
+      
+       // self.tabBarController?.tabBar.isHidden = false
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+      // self.tabBarController?.tabBar.isHidden = true
+        self.hidesBottomBarWhenPushed = false
+    }
+    
+//conversationID, senderId, senderDisplayName, senderName
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.hidesBottomBarWhenPushed = true
+        let convo = self.Conversations[(self.conversationTableView.indexPathForSelectedRow?.row)!]
+        if (segue.identifier == "conversationSelect") {
+            if let vc = segue.destination as? ChatViewController {
+                let backItem = UIBarButtonItem()
+                backItem.title = "Back"
+                navigationItem.backBarButtonItem = backItem
+                vc.conversationID = convo.conversationID
+                vc.senderId = FIRAuth.auth()?.currentUser?.uid
+                vc.senderDisplayName = convo.name
+                vc.senderName = convo.name
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let nav = self.navigationController?.navigationBar
+        nav?.barTintColor = UIColor(red:0.77, green:0.02, blue:0.05, alpha:1.0)
+        nav?.isTranslucent = false
+        //nav?.backgroundColor = UIColor(red:0.77, green:0.02, blue:0.05, alpha:1.0)
+        nav?.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+
+    }
+    
+    func loadConversations(){
         let ref = FIRDatabase.database().reference()
         let convoRef = ref.child("users").child(FIRAuth.auth()!.currentUser!.uid).child("conversations")
-        var conversationID = [String]()
+        //var conversationID = [String]()
      
         convoRef.queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
             let enumerator = snapshot.children
           
-            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-               
-                if let id = rest.value as? String{
-                    conversationID.append(id)
-                    
+            while let nextObj = enumerator.nextObject() as? FIRDataSnapshot {
+                if let rest = nextObj.value as? [String: AnyObject] {
+                    if let id = rest["id"] as? String, let name = rest["name"] as? String{
+                        //conversationID.append(id)
+                        let conversation = Conversation()
+                        conversation.conversationID = id
+                        conversation.name = name
+                        self.Conversations.append(conversation)
+                    }
                 }
             }
-            completion(conversationID)
+        self.conversationTableView.reloadData()
         })
     }
 
@@ -128,6 +151,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.conversationTableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
+        cell.indentationLevel = 2
         cell.nameLabel.text = Conversations[indexPath.row].name
         return cell
     }

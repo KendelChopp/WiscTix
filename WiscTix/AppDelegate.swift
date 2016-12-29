@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FIRApp.configure()
-       
+        
         if let alreadySignedIn = FIRAuth.auth()?.currentUser {
-            if alreadySignedIn.isEmailVerified {
+            if alreadySignedIn.isEmailVerified && UserDefaults.standard.bool(forKey: "loggedIn"){
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar")
                 self.window?.rootViewController = vc
             }

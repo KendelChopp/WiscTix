@@ -9,19 +9,23 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import Firebase
 
 class ListingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     @IBOutlet var ticketsTableView: UITableView!
     
+    var userID: String!
     var tickets = [Listing]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ticketsTableView.delegate = self
         ticketsTableView.dataSource = self
+        self.hidesBottomBarWhenPushed = true
         self.loadTickets()
+        self.userID = FIRAuth.auth()?.currentUser?.uid
         // Do any additional setup after loading the view.
     }
 
@@ -43,23 +47,32 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.priceLabel.text = "$\(listing.price!)"
         cell.sportLabel.text = listing.sport.rawValue
         cell.sportImageView.image = UIImage(named: listing.sport.rawValue)
+        if (listing.userID == self.userID) {
+            cell.yourPostLabel.isHidden = false
+        }
         return cell
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
        try! FIRAuth.auth()?.signOut()
-        
+        UserDefaults.standard.set(false, forKey: "loggedIn")
     }
     
     func loadTickets() {
+      
         let ref = FIRDatabase.database().reference()
         ref.child("posts").queryOrdered(byChild: "dateAdded").observeSingleEvent(of: .value, with: { (snapshot) in
+          
             if (snapshot.value is NSNull) {return}
+          
             let postList = snapshot.value as! [String : AnyObject]
             for (key, value) in postList {
+              
                 let ticket = Listing()
                 ticket.postID = key
+
                 if let date = value["date"] as? String, let opponent = value["opponent"] as? String, let time = value["time"] as? String, let price = value["price"] as? Int, let sportString = value["sport"] as? String, let userID = value["userID"] as? String, let name = value["name"] as? String {
+                    
                     let sport = Sport(rawValue: sportString)
                     ticket.sport = sport
                     ticket.date = date
@@ -93,13 +106,26 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postVc") as! PostViewController
         vc.posterID = self.tickets[indexPath.row].userID
         vc.posterName = self.tickets[indexPath.row].name
         self.present(vc, animated: true, completion: nil)
+    }*/
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "postPickSegue") {
+            if let vc = segue.destination as? PostViewController {
+               /* let backItem = UIBarButtonItem()
+                backItem.title = "Back"
+                navigationItem.backBarButtonItem = backItem*/
+                vc.tabBarC = self.tabBarController
+                let info = self.tickets[(self.ticketsTableView.indexPathForSelectedRow?.row)!]
+                //vc.posterID = info.userID
+                //vc.posterName = info.name
+                vc.listing = info
+            }
+        }
     }
-    
     
     
     

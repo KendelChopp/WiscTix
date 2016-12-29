@@ -10,6 +10,7 @@ import UIKit
 
 class TicketListingCell: UITableViewCell {
 
+    @IBOutlet var yourPostLabel: UILabel!
     @IBOutlet var sportImageView: UIImageView!
     @IBOutlet var sportLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!

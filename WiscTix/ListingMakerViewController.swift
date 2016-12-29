@@ -118,7 +118,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         let postDataRef = dataRef.child("posts").childByAutoId()
         postDataRef.setValue(gameInfo)
        // dataRef.child("posts").child(postID).setValue(gameInfo)
-        dataRef.child("users").child(userID).child("posts").childByAutoId().setValue(postDataRef.key)
+        dataRef.child("users").child(userID).child("posts").child(postDataRef.key).setValue(postDataRef.key)
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar")
         self.present(vc, animated: true, completion: nil)
     }
