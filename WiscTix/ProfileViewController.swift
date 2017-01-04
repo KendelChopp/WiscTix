@@ -63,6 +63,63 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
     }
     
+    
+    
+    @IBAction func deleteAccountPressed(_ sender: Any) {
+        let actionSheet = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
+        actionSheet.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(action) in
+            self.deleteAccount()
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    func deleteAccount() {
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let ref = FIRDatabase.database().reference()
+        
+        
+        self.deletePosts()
+        self.loadConversations { (convoList, userList) in
+                self.deleteConversations(convoList: convoList, userList: userList, uid: uid!)
+                ref.child("users").child(uid!).setValue(nil)
+        }
+        
+        FIRAuth.auth()?.currentUser?.delete(completion: { (error) in
+            if (error != nil) {
+                let actionSheet = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                actionSheet.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(actionSheet, animated: true, completion: nil)
+            }
+        })
+        UserDefaults.standard.set(false, forKey: "loggedIn")
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeNavVC")
+        
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    func deleteConversations(convoList: [String], userList: [String], uid: String) {
+        let ref = FIRDatabase.database().reference()
+        for user in userList {
+            ref.child("users").child(user).child("conversations").child(uid).setValue(nil)
+        }
+        for convo in convoList {
+            ref.child("conversations").child(convo).setValue(nil)
+        }
+    }
+    
+    func deletePosts() {
+        let ref = FIRDatabase.database().reference()
+        for post in self.listings {
+            ref.child("sports").child(post.sport.rawValue).child(post.date).child("posts").child(post.postID).setValue(nil)
+            ref.child("posts").child(post.postID).setValue(nil)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         if ( self.listingsTableView.indexPathForSelectedRow != nil) {
             self.listingsTableView.deselectRow(at: self.listingsTableView.indexPathForSelectedRow!, animated: false)
@@ -116,6 +173,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         })
     
     }
+    
+    func loadConversations(completion:@escaping (Array<String>, Array<String>) -> Void) -> Void {
+        let ref = FIRDatabase.database().reference()
+        var convoList = [String]()
+        var userList = [String]()
+        self.listings.removeAll()
+        ref.child("users").child(self.userID).child("conversations").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+            let enumerator = snapshot.children
+            while let nextObj = enumerator.nextObject() as? FIRDataSnapshot {
+                if let value = nextObj.value as? [String : AnyObject] {
+                    convoList.append(value["id"] as! String)
+                    userList.append(nextObj.key)
+                }
+            }
+            completion(convoList, userList)
+        })
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 111
     }

@@ -43,6 +43,28 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             text.setTextBorder(color: UIColor.lightGray)
         }
     }
+    
+    @IBAction func termsPressed(_ sender: Any) {
+        let url = URL(string: "https://wisctix.com/privacypolicy")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+
+    
+    @IBAction func privacyPressed(_ sender: Any) {
+        let url = URL(string: "https://wisctix.com/terms")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    
  
     override func viewDidLoad() {
         super.viewDidLoad()

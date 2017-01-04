@@ -42,7 +42,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             text.setTextBorder(color: UIColor.lightGray)
         }
     }
-    
+    //https://wisctix.com/privacypolicy
+    @IBAction func privacyPressed(_ sender: Any) {
+        let url = URL(string: "https://wisctix.com/privacypolicy")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    //https://wisctix.com/terms
+    @IBAction func termsPressed(_ sender: Any) {
+        let url = URL(string: "https://wisctix.com/terms")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         self.passwordTextField.setTextBorder(color: UIColor.lightGray)
