@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020C92541E1C12E600D9C3B7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020C92531E1C12E600D9C3B7 /* WelcomeViewController.swift */; };
 		026A50891E10C1A7001FFDC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50881E10C1A7001FFDC1 /* AppDelegate.swift */; };
 		026A508E1E10C1A8001FFDC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 026A508C1E10C1A8001FFDC1 /* Main.storyboard */; };
 		026A50901E10C1A8001FFDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 026A508F1E10C1A8001FFDC1 /* Assets.xcassets */; };
@@ -18,6 +19,8 @@
 		026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */; };
 		026A50C01E10D7DC001FFDC1 /* ListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */; };
 		026A50C41E10DB61001FFDC1 /* TicketListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */; };
+		027EC3E31E182FC100D05CF8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EC3E21E182FC100D05CF8 /* SearchViewController.swift */; };
+		027EC3EA1E18495400D05CF8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027EC3E91E18495400D05CF8 /* ResultsViewController.swift */; };
 		0284788B1E11799B00CC4A03 /* ListingMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */; };
 		0284788E1E117DD000CC4A03 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788D1E117DD000CC4A03 /* Game.swift */; };
 		028478901E11951100CC4A03 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284788F1E11951100CC4A03 /* Listing.swift */; };
@@ -50,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		020C92531E1C12E600D9C3B7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		0219518C1E177AF50091F5B3 /* WiscTix.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WiscTix.entitlements; sourceTree = "<group>"; };
 		026A50851E10C1A7001FFDC1 /* WiscTix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiscTix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		026A50881E10C1A7001FFDC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		026A508D1E10C1A8001FFDC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -67,6 +72,8 @@
 		026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingsViewController.swift; sourceTree = "<group>"; };
 		026A50C31E10DB61001FFDC1 /* TicketListingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketListingCell.swift; sourceTree = "<group>"; };
+		027EC3E21E182FC100D05CF8 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		027EC3E91E18495400D05CF8 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingMakerViewController.swift; sourceTree = "<group>"; };
 		0284788D1E117DD000CC4A03 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		0284788F1E11951100CC4A03 /* Listing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
@@ -140,6 +147,7 @@
 		026A50871E10C1A7001FFDC1 /* WiscTix */ = {
 			isa = PBXGroup;
 			children = (
+				0219518C1E177AF50091F5B3 /* WiscTix.entitlements */,
 				026A50881E10C1A7001FFDC1 /* AppDelegate.swift */,
 				0284788C1E117DB900CC4A03 /* Objects */,
 				026A50B81E10C2E7001FFDC1 /* ViewControllers */,
@@ -174,14 +182,12 @@
 		026A50B81E10C2E7001FFDC1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */,
-				026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */,
-				026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */,
-				0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */,
+				027EC3E41E182FCA00D05CF8 /* UserAuthentication */,
+				027EC3E51E182FDC00D05CF8 /* Listings */,
+				027EC3E61E182FE400D05CF8 /* Chat */,
+				027EC3E71E182FEA00D05CF8 /* Profile */,
+				027EC3E81E182FF300D05CF8 /* Search */,
 				028478991E120EB300CC4A03 /* PostViewController.swift */,
-				028478911E12067500CC4A03 /* ChatViewController.swift */,
-				028478931E12096300CC4A03 /* ChatListViewController.swift */,
-				0284789B1E15AA2100CC4A03 /* ProfileViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -193,6 +199,51 @@
 				028478951E120A9B00CC4A03 /* ConversationTableViewCell.swift */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		027EC3E41E182FCA00D05CF8 /* UserAuthentication */ = {
+			isa = PBXGroup;
+			children = (
+				026A50B91E10C2FD001FFDC1 /* LoginViewController.swift */,
+				020C92531E1C12E600D9C3B7 /* WelcomeViewController.swift */,
+				026A50BB1E10C30A001FFDC1 /* SignupViewController.swift */,
+			);
+			name = UserAuthentication;
+			sourceTree = "<group>";
+		};
+		027EC3E51E182FDC00D05CF8 /* Listings */ = {
+			isa = PBXGroup;
+			children = (
+				026A50BF1E10D7DC001FFDC1 /* ListingsViewController.swift */,
+				0284788A1E11799B00CC4A03 /* ListingMakerViewController.swift */,
+			);
+			name = Listings;
+			sourceTree = "<group>";
+		};
+		027EC3E61E182FE400D05CF8 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				028478911E12067500CC4A03 /* ChatViewController.swift */,
+				028478931E12096300CC4A03 /* ChatListViewController.swift */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		027EC3E71E182FEA00D05CF8 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0284789B1E15AA2100CC4A03 /* ProfileViewController.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		027EC3E81E182FF300D05CF8 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				027EC3E21E182FC100D05CF8 /* SearchViewController.swift */,
+				027EC3E91E18495400D05CF8 /* ResultsViewController.swift */,
+			);
+			name = Search;
 			sourceTree = "<group>";
 		};
 		0284788C1E117DB900CC4A03 /* Objects */ = {
@@ -306,6 +357,14 @@
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = N8GFC63WGF;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					026A50981E10C1A9001FFDC1 = {
 						CreatedOnToolsVersion = 8.2;
@@ -497,12 +556,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				027EC3E31E182FC100D05CF8 /* SearchViewController.swift in Sources */,
 				028478981E120B3B00CC4A03 /* Conversation.swift in Sources */,
 				0284788B1E11799B00CC4A03 /* ListingMakerViewController.swift in Sources */,
 				026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */,
 				0284789A1E120EB300CC4A03 /* PostViewController.swift in Sources */,
+				020C92541E1C12E600D9C3B7 /* WelcomeViewController.swift in Sources */,
 				0284789C1E15AA2100CC4A03 /* ProfileViewController.swift in Sources */,
 				028478901E11951100CC4A03 /* Listing.swift in Sources */,
+				027EC3EA1E18495400D05CF8 /* ResultsViewController.swift in Sources */,
 				0284788E1E117DD000CC4A03 /* Game.swift in Sources */,
 				028478941E12096300CC4A03 /* ChatListViewController.swift in Sources */,
 				028478961E120A9B00CC4A03 /* ConversationTableViewCell.swift in Sources */,
@@ -663,6 +725,7 @@
 			baseConfigurationReference = 789A9000794E953A0288CC1A /* Pods-WiscTix.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WiscTix/WiscTix.entitlements;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
 				INFOPLIST_FILE = WiscTix/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -677,6 +740,7 @@
 			baseConfigurationReference = 1C8A2F512C7082E2A698CB4F /* Pods-WiscTix.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WiscTix/WiscTix.entitlements;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
 				INFOPLIST_FILE = WiscTix/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -37,7 +37,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         let ref = FIRDatabase.database().reference()
         self.dateList.removeAll()
 
-    ref.child("sports").child(sport.rawValue.lowercased()).queryOrderedByKey().observeSingleEvent(of:.value, with: { (snapshot) in
+    ref.child("sports").child(sport.rawValue).queryOrderedByKey().observeSingleEvent(of:.value, with: { (snapshot) in
 
             let gameList = snapshot.value as! [String : AnyObject]
             for (_, value) in gameList {
@@ -75,7 +75,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
   
     @IBAction func donePressed(_ sender: Any) {
-        let sportString = sport.rawValue.lowercased()
+        let sportString = sport.rawValue
         let opponent = self.dateList[self.datePickerView.selectedRow(inComponent: 0)].opponent as String
         let date = self.dateList[self.datePickerView.selectedRow(inComponent: 0)].date as String
         let price = self.priceLabel.text!
@@ -119,6 +119,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         postDataRef.setValue(gameInfo)
        // dataRef.child("posts").child(postID).setValue(gameInfo)
         dataRef.child("users").child(userID).child("posts").child(postDataRef.key).setValue(postDataRef.key)
+        dataRef.child("sports").child(sportString).child(date).child("posts").child(postDataRef.key).setValue(userID)
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar")
         self.present(vc, animated: true, completion: nil)
     }

@@ -11,18 +11,44 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var emailTextField: SpecialTextField!
+    @IBOutlet var passwordTextField: SpecialTextField!
     
     @IBOutlet var loginButton: UIButton!
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
         self.loginButton.layer.cornerRadius = 10
+        self.navigationItem.title = "Login"
         // Do any additional setup after loading the view.
+    }
+    
+ 
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let text = textField as? SpecialTextField {
+            text.setTextBorder(color: UIColor.red)
+        }
+    }
+
+  
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField as? SpecialTextField {
+            text.setTextBorder(color: UIColor.lightGray)
+        }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.passwordTextField.setTextBorder(color: UIColor.lightGray)
+        self.emailTextField.setTextBorder(color: UIColor.lightGray)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -81,4 +107,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.destructive, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+}
+
+class SpecialTextField: UITextField {
+    var currentBorder: CALayer?
+    func setTextBorder(color: UIColor) {
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = color.cgColor
+        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width:  self.frame.size.width, height: self.frame.size.height)
+        border.borderWidth = width
+        if (currentBorder == nil) {
+            self.layer.addSublayer(border)
+            self.layer.masksToBounds = true
+           
+        } else {
+            self.layer.replaceSublayer(self.currentBorder!, with: border)
+        }
+        self.currentBorder = border
+    }
+    
+    
+    
 }

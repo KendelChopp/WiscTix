@@ -15,7 +15,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var conversationTableView: UITableView!
     
     var Conversations = [Conversation]()
-    
+    var refreshControl: UIRefreshControl!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hidesBottomBarWhenPushed = true
@@ -25,8 +25,13 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         self.conversationTableView.rowHeight = 90
         
         self.loadConversations()
-        
-        // Do any additional setup after loading the view.
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        conversationTableView.addSubview(refreshControl)
+    }
+    func refresh(sender:AnyObject) {
+        self.loadConversations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +76,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func loadConversations(){
+        self.Conversations.removeAll()
         let ref = FIRDatabase.database().reference()
         let convoRef = ref.child("users").child(FIRAuth.auth()!.currentUser!.uid).child("conversations")
         //var conversationID = [String]()
@@ -89,7 +95,8 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                 }
             }
-        self.conversationTableView.reloadData()
+            self.conversationTableView.reloadData()
+            if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
         })
     }
 
@@ -153,6 +160,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = self.conversationTableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
         cell.indentationLevel = 2
         cell.nameLabel.text = Conversations[indexPath.row].name
+     
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -160,6 +168,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.Conversations.count
+       
     }
     
 

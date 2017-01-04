@@ -13,13 +13,23 @@ import FirebaseDatabase
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
+    
     @IBOutlet var titleItem: UINavigationItem!
     @IBOutlet var listingsTableView: UITableView!
     
+    @IBAction func logoutPressed(_ sender: Any) {
+        try! FIRAuth.auth()?.signOut()
+        UserDefaults.standard.set(false, forKey: "loggedIn")
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeNavVC")
+  
+        self.present(vc, animated: true, completion: nil)
+        
+    }
     @IBOutlet var joinDateLabel: UILabel!
     @IBOutlet var numPostsLabel: UILabel!
     var userID: String!
     var listings = [Listing]()
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +39,43 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.loadTickets { (idList) in
             self.getListings(idList: idList)
         }
+        self.hidesBottomBarWhenPushed = true
         self.getUserInfo()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        listingsTableView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
+    func refresh(sender:AnyObject) {
+        self.loadTickets { (idList) in
+            self.getListings(idList: idList)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let nav = self.navigationController?.navigationBar
+        nav?.isTranslucent = false
+        
+        //nav?.backgroundColor = UIColor(red:0.77, green:0.02, blue:0.05, alpha:1.0)
+        nav?.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if ( self.listingsTableView.indexPathForSelectedRow != nil) {
+            self.listingsTableView.deselectRow(at: self.listingsTableView.indexPathForSelectedRow!, animated: false)
+        }
+        
+        // self.tabBarController?.tabBar.isHidden = false
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        // self.tabBarController?.tabBar.isHidden = true
+        self.hidesBottomBarWhenPushed = false
+    }
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -57,7 +101,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func loadTickets(completion:@escaping (Array<String>) -> Void) -> Void {
         let ref = FIRDatabase.database().reference()
         var idList = [String]()
-     
+        self.listings.removeAll()
         ref.child("users").child(self.userID).child("posts").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
          
             if let dict = snapshot.value as? [String : AnyObject] {
@@ -74,6 +118,23 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 111
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.hidesBottomBarWhenPushed = true
+        if (segue.identifier == "profilePostPickSegue") {
+            if let vc = segue.destination as? PostViewController {
+                let backItem = UIBarButtonItem()
+                backItem.title = "Back"
+                navigationItem.backBarButtonItem = backItem
+                vc.tabBarC = self.tabBarController
+                let info = self.listings[(self.listingsTableView.indexPathForSelectedRow?.row)!]
+                vc.listing = info
+            }
+        }
+
     }
     func getListings(idList: [String]) {
     
@@ -102,6 +163,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 self.numPostsLabel.text = String(self.listings.count)
                 self.listingsTableView.reloadData()
+                if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
             })
         }
         

@@ -12,14 +12,38 @@ import FirebaseDatabase
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
-    @IBOutlet var confirmPasswordTextField: UITextField!
+    @IBOutlet var emailTextField: SpecialTextField!
+    @IBOutlet var passwordTextField: SpecialTextField!
+    @IBOutlet var confirmPasswordTextField: SpecialTextField!
     
     @IBOutlet var signUpButton: UIButton!
     var dataRef: FIRDatabaseReference!
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+         self.navigationController?.setNavigationBarHidden(false, animated: true)
+         UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
+        self.emailTextField.setTextBorder(color: UIColor.lightGray)
+        self.passwordTextField.setTextBorder(color: UIColor.lightGray)
+        self.confirmPasswordTextField.setTextBorder(color: UIColor.lightGray)
+    }
     
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let text = textField as? SpecialTextField {
+            text.setTextBorder(color: UIColor.red)
+        }
+    }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField as? SpecialTextField {
+            text.setTextBorder(color: UIColor.lightGray)
+        }
+    }
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataRef = FIRDatabase.database().reference()
@@ -27,6 +51,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self
         self.signUpButton.layer.cornerRadius = 10
+        self.navigationItem.title = "Sign Up"
+        
         // Do any additional setup after loading the view.
     }
     
