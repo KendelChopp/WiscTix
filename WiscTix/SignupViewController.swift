@@ -144,7 +144,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     }
                 })
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginVc")
-                self.present(vc, animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             
         })

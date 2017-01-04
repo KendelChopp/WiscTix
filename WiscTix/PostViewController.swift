@@ -21,6 +21,7 @@ class PostViewController: UIViewController {
     var listing: Listing!
     var userID: String?
     
+    @IBOutlet var lineView: UIView!
     @IBOutlet var dashedView: UIView!
     @IBOutlet var deleteButton: UIButton!
     @IBOutlet var posterLabel: UILabel!
@@ -54,31 +55,12 @@ class PostViewController: UIViewController {
     }
   
     
-    /*
-     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-     [shapeLayer setBounds:self.bounds];
-     [shapeLayer setPosition:self.center];
-     [shapeLayer setFillColor:[[UIColor clearColor] CGColor]];
-     [shapeLayer setStrokeColor:[[UIColor blackColor] CGColor]];
-     [shapeLayer setLineWidth:3.0f];
-     [shapeLayer setLineJoin:kCALineJoinRound];
-     [shapeLayer setLineDashPattern:
-     [NSArray arrayWithObjects:[NSNumber numberWithInt:10],
-     [NSNumber numberWithInt:5],nil]];
-     
-     // Setup the path
-     CGMutablePathRef path = CGPathCreateMutable();
-     CGPathMoveToPoint(path, NULL, 10, 10);
-     CGPathAddLineToPoint(path, NULL, 100,100);
-     
-     [shapeLayer setPath:path];
-     CGPathRelease(path);
-     
-     [[self layer] addSublayer:shapeLayer];
-     */
+
     
    
     func drawTickets() {
+        
+        //draw dashed line
         let  path = UIBezierPath()
         
         let  p0 = CGPoint(x: self.dashedView.center.x - self.dashedView.frame.width / 2, y:
@@ -104,6 +86,36 @@ class PostViewController: UIViewController {
         shapeLayer.lineWidth = 10.0
         
         self.view.layer.addSublayer(shapeLayer)
+        
+        //draw line with semi circle
+        let circleCenter = CGPoint(x: self.lineView.center.x, y: 5 + self.leftSide.center.y + self.leftSide.frame.height / 2 + (self.navigationController?.navigationBar.frame.height)!)
+        let circleRadius = CGFloat(30)
+        let decimalInput = 0.5
+        let start = CGFloat(2 * M_PI_2)
+        let end = start + CGFloat(2 * M_PI * decimalInput)
+        let circlePath = UIBezierPath(arcCenter: circleCenter, radius: circleRadius, startAngle: start, endAngle: end, clockwise: true)
+        let linePath = UIBezierPath()
+        let pLine0 = CGPoint(x: self.lineView.center.x - self.lineView.frame.width / 2, y: circleCenter.y - 5)
+        linePath.move(to: pLine0)
+        let pLine1 = CGPoint(x: self.lineView.center.x - circleRadius, y: pLine0.y)
+        linePath.addLine(to: pLine1)
+        let pLine3 = CGPoint(x: self.lineView.center.x + circleRadius, y: pLine0.y)
+        linePath.move(to: pLine3)
+        let pLine4 = CGPoint(x: self.lineView.center.x + self.lineView.frame.width / 2, y: pLine0.y)
+        linePath.addLine(to: pLine4)
+        
+        let lineLayer = CAShapeLayer()
+        lineLayer.path = linePath.cgPath
+        lineLayer.strokeColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0).cgColor
+        lineLayer.lineWidth = 10.0
+        self.view.layer.addSublayer(lineLayer)
+        
+        let circleLayer = CAShapeLayer()
+        circleLayer.path = circlePath.cgPath
+        circleLayer.fillColor = UIColor.clear.cgColor
+        circleLayer.strokeColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0).cgColor
+        circleLayer.lineWidth = 10.0
+        self.view.layer.addSublayer(circleLayer)
     }
     
     
