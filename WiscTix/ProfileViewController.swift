@@ -159,7 +159,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let ref = FIRDatabase.database().reference()
         var idList = [String]()
         self.listings.removeAll()
-        ref.child("users").child(self.userID).child("posts").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users").child(self.userID).child("posts").queryLimited(toLast: 25).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
          
             if let dict = snapshot.value as? [String : AnyObject] {
                
@@ -237,6 +237,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                         self.listings.append(ticket)
                     }
                 }
+                self.listings.sort(by: {$0.postID > $1.postID})
                 self.numPostsLabel.text = String(self.listings.count)
                 self.listingsTableView.reloadData()
                 if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}

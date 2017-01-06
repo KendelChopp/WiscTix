@@ -9,8 +9,9 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import MessageUI
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     @IBOutlet var leftSide: UIView!
     @IBOutlet var rightSide: UIView!
@@ -29,34 +30,76 @@ class PostViewController: UIViewController {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var opponentLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var messageSellerButton: UIButton!
   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.userID = FIRAuth.auth()?.currentUser?.uid
         self.getUserName()
         self.navigationItem.title = self.listing.sport.rawValue
-        self.posterLabel.text = self.listing.name
-        self.timeLabel.text = self.listing.time
-        self.dateLabel.text = self.listing.date
+        self.posterLabel.text = "Post By: \(self.listing.name!)"
+        
+        
+        self.drawTickets()
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy-HH:mm"
+        let dateString = "\(self.listing.date!)-\(self.listing.time!)"
+        print(dateString)
+        let date = dateFormatter.date(from: dateString)
+        
+        let calendar = NSCalendar.current
+
+        let day = calendar.component(Calendar.Component.day, from: date! as Date)
+        let month = date?.month.uppercased()
+        let year = calendar.component(.year, from: date! as Date)
+        self.dateLabel.text = "\(month!) \(day), 20\(year)"
+        
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        self.timeLabel.text = "\(formatter.string(from: date!))"
+        
         self.opponentLabel.text = self.listing.opponent
         self.priceLabel.text = "$\(self.listing.price!)"
         self.deleteButton.layer.cornerRadius = 7
+        self.messageSellerButton.layer.cornerRadius = 10
         if (listing.userID == self.userID) {
             self.deleteButton.isHidden = false
         }
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "flag"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(sendEmail))
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(compose))
+
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    func sendEmail() {
+        let actionSheet = UIAlertController(title: "Report Ticket", message: "Please confirm that you would like to report this ticket listing.", preferredStyle: .alert)
+        actionSheet.addAction(UIAlertAction(title: "Report", style: .destructive, handler: {(action) in
+            self.sendReport()
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action) in
+            
+        }))
+        self.present(actionSheet, animated: true, completion: nil)
+
+    }
+    
+    func sendReport() {
+        let mailVC = MFMailComposeViewController()
+        mailVC.mailComposeDelegate = self
+        mailVC.setToRecipients(["support@wisctix.com"])
+        mailVC.setSubject("REPORT: \(self.listing.postID!)")
+        mailVC.setMessageBody("Please review the ticket reported.", isHTML: false)
         
-       // self.drawTickets()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(compose))
-
-        // Do any additional setup after loading the view.
+        present(mailVC, animated: true, completion: nil)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        self.drawTickets()
-    }
-  
-    
-
-    
    
     func drawTickets() {
         
@@ -70,7 +113,6 @@ class PostViewController: UIViewController {
         let  p1 = CGPoint(x: self.dashedView.center.x + self.dashedView.frame.width / 2, y:
                               self.dashedView.center.y)
         path.addLine(to: p1)
-
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
@@ -119,9 +161,16 @@ class PostViewController: UIViewController {
     }
     
     
+    @IBAction func messagePressed(_ sender: Any) {
+        self.composeMessage()
+    }
     func compose(_ sender: Any) {
        // let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar") as! UITabBarController
-     
+        self.composeMessage()
+    }
+    
+    func composeMessage() {
+        
         if (self.userID == self.listing.userID) {
             let actionSheet = UIAlertController(title: "Your Post", message: "You cannot create a conversation with yourself.", preferredStyle: .alert)
             actionSheet.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
@@ -131,14 +180,14 @@ class PostViewController: UIViewController {
         
         let actionSheet = UIAlertController(title: "Create Conversation", message: "Would you like to messsage \(self.listing.name!) about this ticket?", preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
-                self.composeConfirm()
-        
+            self.composeConfirm()
+            
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action) in
             return
         }))
         self.present(actionSheet, animated: true, completion: nil)
-       
+        
     }
     
     func composeConfirm() {
@@ -199,5 +248,23 @@ class PostViewController: UIViewController {
             }
         })
         
+    }
+}
+
+extension Date {
+    var month: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        return dateFormatter.string(from: self as Date)
+    }
+    var hour0x: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh"
+        return dateFormatter.string(from: self as Date)
+    }
+    var minute0x: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm"
+        return dateFormatter.string(from: self as Date)
     }
 }

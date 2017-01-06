@@ -11,5 +11,8 @@ import Foundation
 class Conversation: NSObject {
     var conversationID: String!
     var name: String!
-
+    var notificationID: String!
+    var userID: String!
+    var isRead: Bool!
+    var recentMessage: String!
 }

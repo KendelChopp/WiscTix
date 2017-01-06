@@ -16,8 +16,10 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     
     var Conversations = [Conversation]()
     var refreshControl: UIRefreshControl!
+    var userID: String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.userID = FIRAuth.auth()?.currentUser?.uid
         self.hidesBottomBarWhenPushed = true
         self.automaticallyAdjustsScrollViewInsets = false
         self.conversationTableView.dataSource = self
@@ -29,6 +31,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
         conversationTableView.addSubview(refreshControl)
+        
     }
     func refresh(sender:AnyObject) {
         self.loadConversations()
@@ -56,10 +59,12 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 let backItem = UIBarButtonItem()
                 backItem.title = "Back"
                 navigationItem.backBarButtonItem = backItem
-                vc.conversationID = convo.conversationID
+                //vc.conversationID = convo.conversationID
                 vc.senderId = FIRAuth.auth()?.currentUser?.uid
                 vc.senderDisplayName = convo.name
                 vc.senderName = convo.name
+               // vc.notificationID = convo.notificationID
+                vc.conversation = convo
             }
         }
     }
@@ -86,71 +91,35 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
           
             while let nextObj = enumerator.nextObject() as? FIRDataSnapshot {
                 if let rest = nextObj.value as? [String: AnyObject] {
-                    if let id = rest["id"] as? String, let name = rest["name"] as? String{
+                    if let id = rest["id"] as? String, let name = rest["name"] as? String, let read = rest["read"] as? Bool{
                         //conversationID.append(id)
                         let conversation = Conversation()
                         conversation.conversationID = id
                         conversation.name = name
-                        self.Conversations.append(conversation)
+                        conversation.isRead = read
+                        conversation.userID = nextObj.key
+                        conversation.recentMessage = ""
+                        if let recent = rest["recentMessage"] as? String {
+                            conversation.recentMessage = recent
+                        }
+                        ref.child("users").child(nextObj.key).child("notification_id").observe(.value, with: { (snap2) in
+                            if let notID = snap2.value as? String {
+                                conversation.notificationID = notID
+                                 self.Conversations.append(conversation)
+                            }
+                            self.conversationTableView.reloadData()
+                            if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
+                        })
+                        
                     }
                 }
             }
-            self.conversationTableView.reloadData()
-            if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
+            
         })
     }
 
     
-   /* func loadConversations() {
-        let dispatchGroup = DispatchGroup() // We create the dispatch group
-        
   
-        let ref = FIRDatabase.database().reference()
-        let convoRef = ref.child("users").child(FIRAuth.auth()!.currentUser!.uid).child("conversations")
-        var conversationID = [String]()
-        print(1)
-        
-        //dispatchGroup.enter()
-        convoRef.queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let enumerator = snapshot.children
-            print(2)
-            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-               print(3)
-                if let id = rest.value as? String{
-                    conversationID.append(id)
-                    print(id)
-                    //dispatchGroup.leave()
-                }
-            }
-         
-            
-        })
-        print(4)
-       // dispatchGroup.wait()
-        //ref.removeAllObservers()
-        print("size: \(conversationID.count)")
-    
-        for id in conversationID {
-         print(5)
-           ref.child("conversations").queryEqual(toValue: id).observeSingleEvent(of: .value, with: { (snapshot) in
-          print(6)
-                if let convo = snapshot.value as? [String : AnyObject] {
-              print(7)
-                    let conversation = Conversation()
-                    conversation.conversationID = id
-                    conversation.name = "Temporary test name"
-                    self.Conversations.append(conversation)
-                }
-           })
-            ref.removeAllObservers()
-        }
-        print(8)
-        self.conversationTableView.reloadData()
-        
-        
-    }
-    */
     @IBAction func logoutPressed(_ sender: Any) {
         try! FIRAuth.auth()?.signOut()
     }
@@ -160,7 +129,10 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = self.conversationTableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
         cell.indentationLevel = 2
         cell.nameLabel.text = Conversations[indexPath.row].name
-     
+        cell.conversationLabel.text = Conversations[indexPath.row].recentMessage
+        if (!Conversations[indexPath.row].isRead) {
+            cell.readDotLabel.isHidden = false
+        }
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {

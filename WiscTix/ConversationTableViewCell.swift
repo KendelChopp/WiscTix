@@ -13,5 +13,7 @@ class ConversationTableViewCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     var conversationID: String!
     
+    @IBOutlet var conversationLabel: UILabel!
+    @IBOutlet var readDotLabel: UILabel!
     
 }

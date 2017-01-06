@@ -74,6 +74,7 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         if (listing.userID == self.userID) {
             cell.yourPostLabel.isHidden = false
         }
+        
         return cell
     }
     
@@ -85,7 +86,7 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
     func loadTickets() {
       self.tickets.removeAll()
         let ref = FIRDatabase.database().reference()
-        ref.child("posts").queryOrdered(byChild: "dateAdded").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("posts").queryLimited(toLast: 25).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
           
             if (snapshot.value is NSNull) {return}
           
@@ -108,7 +109,7 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
                     self.tickets.append(ticket)
                 }
             }
-            
+            self.tickets.sort(by: {$0.postID > $1.postID})
             self.ticketsTableView.reloadData()
             if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
         })

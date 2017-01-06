@@ -84,10 +84,8 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
                         let postString = nextObj.key
                         let postsRef = FIRDatabase.database().reference().child("posts").child(postString)
                         
-                        var query = postsRef.queryOrdered(byChild: "price")
-                        if self.sortMethod == SortMethod.date {
-                            query = postsRef.queryOrdered(byChild: "dateAdded")
-                        }
+                        let query = postsRef.queryLimited(toLast: 25).queryOrderedByKey()
+                        
                         let ticket = Listing()
                         ticket.postID = postString
                        
@@ -110,6 +108,10 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
                                 }
 
                             }
+                            if (self.sortMethod == SortMethod.price) {
+                                self.tickets.sort(by: {$0.price < $1.price})
+                            }
+                            
                             self.resultsTableView.reloadData()
                             if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
                         })

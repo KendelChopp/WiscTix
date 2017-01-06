@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import OneSignal
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
 
@@ -116,7 +117,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         if passwordTextField.text! != confirmPasswordTextField.text! {
             showError(errorMessage: "The passwords you entered do not match.")
         }
-        
+        var notID = "DEFAULT_ID"
+        OneSignal.idsAvailable({ (notifierId, pushToken) in
+            notID = notifierId!
+        })
         var token = emailTextField.text!.components(separatedBy: "@")
         let name = token[0]
         //Create the user
@@ -136,7 +140,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 //let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
                 //changeRequest?.displayName = name
                 user.profileChangeRequest().displayName = name
-                let userInfo: [String : Any] = ["uid" : user.uid, "name" : name, "joinDate" : "\(month)-\(day)-\(year)"]
+                let userInfo: [String : Any] = ["uid" : user.uid, "name" : name, "joinDate" : "\(month)-\(day)-\(year)", "notification_id" : notID]
                 self.dataRef.child("users").child(user.uid).setValue(userInfo)
                 user.sendEmailVerification(completion: { (error) in
                     if (error != nil) {

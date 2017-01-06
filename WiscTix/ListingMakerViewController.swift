@@ -115,6 +115,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         let dateAdded = "\(month)-\(day)-\(year)-\(hour)-\(minutes)"
         let gameInfo: [String : Any] = ["date" : date, "opponent" : opponent, "price" : self.price, "time" : time, "sport" : sportString, "dateAdded" : dateAdded, "userID" : userID, "name" : self.userName ?? "ERROR"]
         let dataRef = FIRDatabase.database().reference()
+        
         let postDataRef = dataRef.child("posts").childByAutoId()
         postDataRef.setValue(gameInfo)
        // dataRef.child("posts").child(postID).setValue(gameInfo)
