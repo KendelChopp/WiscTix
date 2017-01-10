@@ -59,6 +59,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
                 }
                 
             }
+        self.dateList.sort(by: {$0.date < $1.date})
             self.datePickerView.reloadAllComponents()
         })
         ref.removeAllObservers()

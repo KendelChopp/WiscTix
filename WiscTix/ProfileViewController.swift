@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import OneSignal
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -19,6 +20,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func logoutPressed(_ sender: Any) {
         try! FIRAuth.auth()?.signOut()
+        OneSignal.idsAvailable({ (userID, pushToken) in
+            if (userID != nil) {
+                FIRDatabase.database().reference().child("users").child(self.userID).child("notification_id").child(userID!).setValue(nil)
+            }
+        })
         UserDefaults.standard.set(false, forKey: "loggedIn")
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeNavVC")
   

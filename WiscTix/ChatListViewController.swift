@@ -17,6 +17,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     var Conversations = [Conversation]()
     var refreshControl: UIRefreshControl!
     var userID: String!
+    var username: String!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.userID = FIRAuth.auth()?.currentUser?.uid
@@ -25,8 +26,8 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         self.conversationTableView.dataSource = self
         self.conversationTableView.delegate = self
         self.conversationTableView.rowHeight = 90
-        
-        self.loadConversations()
+        self.getUserInfo()
+       // self.loadConversations()
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
@@ -41,7 +42,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         if ( self.conversationTableView.indexPathForSelectedRow != nil) {
           self.conversationTableView.deselectRow(at: self.conversationTableView.indexPathForSelectedRow!, animated: false)
         }
-      
+        self.loadConversations()
        // self.tabBarController?.tabBar.isHidden = false
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -61,7 +62,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 navigationItem.backBarButtonItem = backItem
                 //vc.conversationID = convo.conversationID
                 vc.senderId = FIRAuth.auth()?.currentUser?.uid
-                vc.senderDisplayName = convo.name
+                vc.senderDisplayName = self.username
                 vc.senderName = convo.name
                // vc.notificationID = convo.notificationID
                 vc.conversation = convo
@@ -77,7 +78,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         //nav?.backgroundColor = UIColor(red:0.77, green:0.02, blue:0.05, alpha:1.0)
         nav?.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-
+      
     }
     
     func loadConversations(){
@@ -90,8 +91,11 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
             let enumerator = snapshot.children
           
             while let nextObj = enumerator.nextObject() as? FIRDataSnapshot {
+                
                 if let rest = nextObj.value as? [String: AnyObject] {
+                    
                     if let id = rest["id"] as? String, let name = rest["name"] as? String, let read = rest["read"] as? Bool{
+                        
                         //conversationID.append(id)
                         let conversation = Conversation()
                         conversation.conversationID = id
@@ -100,13 +104,24 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                         conversation.userID = nextObj.key
                         conversation.recentMessage = ""
                         if let recent = rest["recentMessage"] as? String {
+                            
                             conversation.recentMessage = recent
                         }
                         ref.child("users").child(nextObj.key).child("notification_id").observe(.value, with: { (snap2) in
-                            if let notID = snap2.value as? String {
+                            let enumer = snap2.children
+                            var idList = [String]()
+                            while let nextNot = enumer.nextObject() as? FIRDataSnapshot {
+                                idList.append(nextNot.key)
+                                print(nextNot.key)
+                            }
+                            conversation.notificationIDs = idList
+                            self.Conversations.append(conversation)
+                           /* if let notID = snap2.value as? String {
+                                
                                 conversation.notificationID = notID
                                  self.Conversations.append(conversation)
-                            }
+                            }*/
+                            self.Conversations.sort { $0.isRead && !$1.isRead }
                             self.conversationTableView.reloadData()
                             if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
                         })
@@ -132,6 +147,8 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         cell.conversationLabel.text = Conversations[indexPath.row].recentMessage
         if (!Conversations[indexPath.row].isRead) {
             cell.readDotLabel.isHidden = false
+        } else {
+            cell.readDotLabel.isHidden = true
         }
         return cell
     }
@@ -142,6 +159,19 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         return self.Conversations.count
        
     }
-    
+    func getUserInfo()  {
+        let ref = FIRDatabase.database().reference().child("users").child(FIRAuth.auth()!.currentUser!.uid)
+        
+        ref.queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let values = snapshot.value as? [String : AnyObject] {
+                
+                if let nameValue = values["name"] as? String {
+                    self.username = nameValue
+                }
+            }
+        })
+        
+    }
 
 }

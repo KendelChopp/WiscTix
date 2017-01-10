@@ -67,6 +67,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                        
 
                     }
+                    gameList.sort(by: {$0.date < $1.date})
                     self.dateList.updateValue(gameList, forKey: sport)
                     
                 }

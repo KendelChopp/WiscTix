@@ -27,10 +27,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         self.loginButton.layer.cornerRadius = 10
         self.navigationItem.title = "Login"
+        
         // Do any additional setup after loading the view.
     }
     
- 
+    override func viewDidAppear(_ animated: Bool) {
+        emailTextField.setTextBorder(color: UIColor.lightGray)
+        passwordTextField.setTextBorder(color: UIColor.lightGray)
+    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if let text = textField as? SpecialTextField {
@@ -107,9 +111,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.showError(errorMessage: "Your email is not verified!")
                     
                 } else {
-                    if (OneSignal.app_id()) != nil {
-                        FIRDatabase.database().reference().child("users").child(user.uid).child("notification_id").setValue(OneSignal.app_id())
-                    }
+                    OneSignal.idsAvailable({ (userID, pushToken) in
+                        if (userID != nil) {
+                            FIRDatabase.database().reference().child("users").child(user.uid).child("notification_id").child(userID!).setValue(userID)
+                        }
+                    })
+                   /* if (OneSignal.app_id()) != nil {
+                     
+                    }*/
                      UserDefaults.standard.set(true, forKey: "loggedIn")
                     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar")
                     self.present(vc, animated: true, completion: nil)

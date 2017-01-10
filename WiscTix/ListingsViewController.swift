@@ -149,6 +149,8 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func addPostPressed(_ sender: Any) {
 
         self.newPost { (vc) in
+            vc.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+
             self.present(vc, animated: true, completion: nil)
         }
         

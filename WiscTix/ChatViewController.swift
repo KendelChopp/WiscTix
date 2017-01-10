@@ -39,6 +39,8 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
         self.messageRef = FIRDatabase.database().reference().child("conversations").child(self.conversation.conversationID).child("messages")
         self.observeMessages()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "flag"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(sendEmail))
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").child(self.senderId).child("conversations").child(self.conversation.userID).child("read").setValue(true)
        
     }
     private func addMessage(withId id: String, name: String, text: String) {
@@ -60,7 +62,8 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
         JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
         
         finishSendingMessage() // 5
-        OneSignal.postNotification(["contents": ["en": text!], "headings" : ["en" : senderDisplayName!],"include_player_ids": [self.conversation.notificationID!]])
+        
+        OneSignal.postNotification(["contents": ["en": text!], "headings" : ["en" : self.senderDisplayName],"include_player_ids": self.conversation.notificationIDs!])
         let ref = FIRDatabase.database().reference()
     ref.child("users").child(conversation.userID).child("conversations").child(self.senderId).child("read").setValue(false)
     }

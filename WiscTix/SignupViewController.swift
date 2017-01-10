@@ -110,17 +110,20 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         if !(isValidEmail(testStr: emailTextField.text!)) {
             showError(errorMessage: "Please enter a valid email @wisc.edu.")
+            return
         }
         if !(isValidPassword(password: passwordTextField.text!)) {
             showError(errorMessage: "Please enter a password with 6-25 characters.")
+            return
         }
         if passwordTextField.text! != confirmPasswordTextField.text! {
             showError(errorMessage: "The passwords you entered do not match.")
+            return
         }
-        var notID = "DEFAULT_ID"
+/*        var notID = "DEFAULT_ID"
         OneSignal.idsAvailable({ (notifierId, pushToken) in
             notID = notifierId!
-        })
+        })*/
         var token = emailTextField.text!.components(separatedBy: "@")
         let name = token[0]
         //Create the user
@@ -140,7 +143,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 //let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
                 //changeRequest?.displayName = name
                 user.profileChangeRequest().displayName = name
-                let userInfo: [String : Any] = ["uid" : user.uid, "name" : name, "joinDate" : "\(month)-\(day)-\(year)", "notification_id" : notID]
+                let userInfo: [String : Any] = ["uid" : user.uid, "name" : name, "joinDate" : "\(month)-\(day)-\(year)"/*, "notification_id" : notID*/]
                 self.dataRef.child("users").child(user.uid).setValue(userInfo)
                 user.sendEmailVerification(completion: { (error) in
                     if (error != nil) {
@@ -179,16 +182,16 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func isValidEmail(testStr:String) -> Bool {
-        return true
-        /*
-            UNCOMMENT WHEN GOING INTO PRODUCTION
+        //return true
+        
+       
          
          let emailRegEx = "[A-Z0-9a-z._%+-]+@wisc.edu"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
          
-         */
+        
     }
 
 }
