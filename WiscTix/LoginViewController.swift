@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
+import OneSignal
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -105,6 +107,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.showError(errorMessage: "Your email is not verified!")
                     
                 } else {
+                    if (OneSignal.app_id()) != nil {
+                        FIRDatabase.database().reference().child("users").child(user.uid).child("notification_id").setValue(OneSignal.app_id())
+                    }
                      UserDefaults.standard.set(true, forKey: "loggedIn")
                     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar")
                     self.present(vc, animated: true, completion: nil)

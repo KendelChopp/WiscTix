@@ -106,12 +106,12 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
         //draw dashed line
         let  path = UIBezierPath()
         
-        let  p0 = CGPoint(x: self.dashedView.center.x - self.dashedView.frame.width / 2, y:
-                              self.dashedView.center.y)
+        //let  p0 = CGPoint(x: self.dashedView.center.x - self.dashedView.frame.width / 2, y: self.dashedView.center.y)
+        let  p0 = CGPoint(x: self.leftSide.center.x, y: self.dashedView.center.y)
         path.move(to: p0)
     
-        let  p1 = CGPoint(x: self.dashedView.center.x + self.dashedView.frame.width / 2, y:
-                              self.dashedView.center.y)
+        //let  p1 = CGPoint(x: self.dashedView.center.x + self.dashedView.frame.width / 2, y: self.dashedView.center.y)
+        let  p1 = CGPoint(x: self.rightSide.center.x, y: self.dashedView.center.y)
         path.addLine(to: p1)
         
         let shapeLayer = CAShapeLayer()
@@ -130,7 +130,8 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
         self.view.layer.addSublayer(shapeLayer)
         
         //draw line with semi circle
-        let circleCenter = CGPoint(x: self.lineView.center.x, y: 5 + self.leftSide.center.y + self.leftSide.frame.height / 2 + (self.navigationController?.navigationBar.frame.height)!)
+        //let circleCenter = CGPoint(x: self.lineView.center.x, y: 5 + self.leftSide.center.y + self.leftSide.frame.height / 2 + (self.navigationController?.navigationBar.frame.height)!)
+        let circleCenter = CGPoint(x: self.lineView.center.x, y: self.leftSide.frame.maxY + (self.navigationController?.navigationBar.frame.height)! + 5)
         let circleRadius = CGFloat(30)
         let decimalInput = 0.5
         let start = CGFloat(2 * M_PI_2)

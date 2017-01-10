@@ -209,6 +209,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let info = self.listings[(self.listingsTableView.indexPathForSelectedRow?.row)!]
                 vc.listing = info
             }
+        } else if (segue.identifier == "profileToInfo") {
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
         }
 
     }

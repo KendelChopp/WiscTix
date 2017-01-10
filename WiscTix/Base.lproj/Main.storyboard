@@ -211,6 +211,12 @@
                                     <action selector="privacyPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ano-mc-F0D"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WiscTix is not affiliated with the University of Wisconsin" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="g70-JU-MPJ">
+                                <rect key="frame" x="16" y="574" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
@@ -220,13 +226,17 @@
                             <constraint firstItem="EFL-ER-kuv" firstAttribute="leading" secondItem="dnN-sV-aH5" secondAttribute="leading" id="6qa-CE-fmI"/>
                             <constraint firstItem="EFL-ER-kuv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="8Zv-KL-fxI"/>
                             <constraint firstItem="Wcz-oF-gEz" firstAttribute="top" secondItem="NoT-vL-vf1" secondAttribute="bottom" constant="8" symbolic="YES" id="B3j-Wb-06b"/>
+                            <constraint firstItem="g70-JU-MPJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="DbB-fY-7TQ"/>
+                            <constraint firstItem="g70-JU-MPJ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="MqV-hL-5fb"/>
                             <constraint firstItem="3th-LD-tfv" firstAttribute="centerX" secondItem="NoT-vL-vf1" secondAttribute="centerX" id="Ojj-Kh-8lf"/>
                             <constraint firstItem="ryL-Qk-QkE" firstAttribute="top" secondItem="s4t-FL-4hr" secondAttribute="bottom" constant="8" symbolic="YES" id="Pmi-aL-1Jh"/>
                             <constraint firstItem="dnN-sV-aH5" firstAttribute="trailing" secondItem="s4t-FL-4hr" secondAttribute="trailing" id="SGG-cS-BIE"/>
                             <constraint firstItem="ryL-Qk-QkE" firstAttribute="centerX" secondItem="3th-LD-tfv" secondAttribute="centerX" id="ToI-99-DG2"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Wcz-oF-gEz" secondAttribute="bottom" constant="325" id="TqE-T4-eq5"/>
                             <constraint firstItem="dnN-sV-aH5" firstAttribute="leading" secondItem="s4t-FL-4hr" secondAttribute="leading" id="VOH-HQ-Dfj"/>
+                            <constraint firstItem="g70-JU-MPJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Yjr-X7-YOV"/>
                             <constraint firstItem="EFL-ER-kuv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Z7V-Do-59O"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="g70-JU-MPJ" secondAttribute="bottom" constant="8" id="eIo-M2-TzJ"/>
                             <constraint firstItem="3th-LD-tfv" firstAttribute="leading" secondItem="Wcz-oF-gEz" secondAttribute="leading" id="gyW-oA-8tC"/>
                             <constraint firstItem="dnN-sV-aH5" firstAttribute="top" secondItem="EFL-ER-kuv" secondAttribute="bottom" constant="15" id="kYA-4F-db7"/>
                             <constraint firstItem="ryL-Qk-QkE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="29" id="lSp-zt-Yaf"/>
@@ -245,7 +255,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="136.5" y="138.5"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="Qvz-KU-OJP">
@@ -338,6 +348,12 @@
                                     <action selector="privacyPressed:" destination="31h-xu-Pk5" eventType="touchUpInside" id="nsw-lp-aO8"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WiscTix is not affiliated with the University of Wisconsin" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="ykZ-Mm-9c4">
+                                <rect key="frame" x="16" y="574" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
@@ -345,18 +361,22 @@
                             <constraint firstItem="Pxx-KN-Bo8" firstAttribute="trailing" secondItem="ydC-Rx-vCj" secondAttribute="trailing" id="6sf-og-XYZ"/>
                             <constraint firstItem="mVU-6n-l75" firstAttribute="top" secondItem="4sI-L2-6rc" secondAttribute="bottom" constant="15" id="8gb-Fs-Qrr"/>
                             <constraint firstItem="MYY-7H-spI" firstAttribute="leading" secondItem="ga8-y8-3QL" secondAttribute="leading" id="Eoe-w9-lFK"/>
+                            <constraint firstItem="ykZ-Mm-9c4" firstAttribute="centerX" secondItem="Z2l-zU-18U" secondAttribute="centerX" id="GDc-UY-I9l"/>
                             <constraint firstItem="2f9-w5-C2l" firstAttribute="top" secondItem="mVU-6n-l75" secondAttribute="bottom" constant="8" symbolic="YES" id="GVx-sQ-cYj"/>
                             <constraint firstItem="4sI-L2-6rc" firstAttribute="leading" secondItem="mVU-6n-l75" secondAttribute="leading" id="Gm7-r6-otc"/>
                             <constraint firstItem="Pxx-KN-Bo8" firstAttribute="leading" secondItem="Z2l-zU-18U" secondAttribute="leadingMargin" id="H7e-oW-npz"/>
                             <constraint firstItem="eXi-e9-K4g" firstAttribute="top" secondItem="MYY-7H-spI" secondAttribute="bottom" constant="2" id="J0f-c8-j1O"/>
                             <constraint firstItem="Pxx-KN-Bo8" firstAttribute="trailing" secondItem="Z2l-zU-18U" secondAttribute="trailingMargin" id="KFR-Aj-hvo"/>
                             <constraint firstItem="2f9-w5-C2l" firstAttribute="leading" secondItem="Z2l-zU-18U" secondAttribute="leadingMargin" constant="29" id="Ldq-cJ-54S"/>
+                            <constraint firstItem="ykZ-Mm-9c4" firstAttribute="trailing" secondItem="Z2l-zU-18U" secondAttribute="trailingMargin" id="NIJ-ck-YYc"/>
                             <constraint firstItem="mVU-6n-l75" firstAttribute="centerX" secondItem="2f9-w5-C2l" secondAttribute="centerX" id="P8P-N7-6gI"/>
                             <constraint firstItem="ga8-y8-3QL" firstAttribute="top" secondItem="eXi-e9-K4g" secondAttribute="bottom" constant="2" id="ZYf-NK-JlE"/>
                             <constraint firstItem="MYY-7H-spI" firstAttribute="trailing" secondItem="ga8-y8-3QL" secondAttribute="trailing" id="ZaH-Yi-ooq"/>
                             <constraint firstItem="2f9-w5-C2l" firstAttribute="centerX" secondItem="MYY-7H-spI" secondAttribute="centerX" id="bcF-Rf-hR5"/>
                             <constraint firstItem="MYY-7H-spI" firstAttribute="centerX" secondItem="eXi-e9-K4g" secondAttribute="centerX" id="cDs-os-ZE5"/>
                             <constraint firstItem="MYY-7H-spI" firstAttribute="top" secondItem="2f9-w5-C2l" secondAttribute="bottom" constant="2" id="cxn-FO-Ej4"/>
+                            <constraint firstItem="ykZ-Mm-9c4" firstAttribute="leading" secondItem="Z2l-zU-18U" secondAttribute="leadingMargin" id="dNt-mI-ELc"/>
+                            <constraint firstItem="Mqv-uM-c3y" firstAttribute="top" secondItem="ykZ-Mm-9c4" secondAttribute="bottom" constant="8" id="hxd-Pb-Imi"/>
                             <constraint firstItem="Mqv-uM-c3y" firstAttribute="top" secondItem="ga8-y8-3QL" secondAttribute="bottom" constant="297" id="koX-t2-Ir1"/>
                             <constraint firstItem="4sI-L2-6rc" firstAttribute="top" secondItem="ydC-Rx-vCj" secondAttribute="bottom" constant="15" id="lEb-Rx-6by"/>
                             <constraint firstItem="ydC-Rx-vCj" firstAttribute="trailing" secondItem="4sI-L2-6rc" secondAttribute="trailing" id="sPv-gz-Obh"/>
@@ -949,7 +969,14 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="oca-FS-Pb8"/>
-                    <navigationItem key="navigationItem" id="iNQ-4u-ILK"/>
+                    <navigationItem key="navigationItem" id="iNQ-4u-ILK">
+                        <barButtonItem key="rightBarButtonItem" image="info" id="EtT-LU-w40">
+                            <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <connections>
+                                <segue destination="gsd-7E-Aiu" kind="show" identifier="profileToInfo" id="LcM-1S-eND"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="joinDateLabel" destination="Wmt-Wz-92B" id="UTR-9y-VXU"/>
                         <outlet property="listingsTableView" destination="cXE-Rm-psZ" id="kXn-O6-ZhW"/>
@@ -960,6 +987,124 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GTA-h4-on5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3392.8000000000002" y="-961.16941529235385"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="WaU-IR-Dma">
+            <objects>
+                <viewController id="gsd-7E-Aiu" customClass="InfoViewController" customModule="WiscTix" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PvP-PX-6He"/>
+                        <viewControllerLayoutGuide type="bottom" id="frR-76-PJg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vw1-ZH-Ra4">
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBC-vd-EI8">
+                                <rect key="frame" x="64" y="20" width="247" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="pYs-fd-H4c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="App By Kendel Chopp">
+                                    <color key="titleColor" red="0.54408690879999999" green="0.55060361489999998" blue="0.51679465349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="kendelChoppPress:" destination="gsd-7E-Aiu" eventType="touchUpInside" id="0AH-Xv-a84"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ega-f6-5vZ">
+                                <rect key="frame" x="10" y="60" width="354" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="O45-z8-RIA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Logo Design By Susu Schwaber">
+                                    <color key="titleColor" red="0.54408690879999999" green="0.55060361489999998" blue="0.51679465349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="susuSchwaberPress:" destination="gsd-7E-Aiu" eventType="touchUpInside" id="VhL-FD-tke"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q79-0o-iKP">
+                                <rect key="frame" x="64" y="475" width="247" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="6Bs-L8-71p"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Terms of Use"/>
+                                <connections>
+                                    <action selector="termsPress:" destination="gsd-7E-Aiu" eventType="touchUpInside" id="evo-l1-IZg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRH-Dv-vx7">
+                                <rect key="frame" x="64" y="110" width="247" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="N6v-TU-od9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="WiscTix.com">
+                                    <color key="titleColor" red="0.54408690879999999" green="0.55060361489999998" blue="0.51679465349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="websitePress:" destination="gsd-7E-Aiu" eventType="touchUpInside" id="ZXl-By-Cfq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpY-cq-gyw">
+                                <rect key="frame" x="64" y="160" width="247" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="pMi-E0-jaX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Twitter @WiscTix">
+                                    <color key="titleColor" red="0.54408690879999999" green="0.55060361489999998" blue="0.51679465349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="twitterPress:" destination="gsd-7E-Aiu" eventType="touchUpInside" id="Phh-w0-zCn"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WiscTix is not affiliated with the University of Wisconsin" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-0i-D7a">
+                                <rect key="frame" x="16" y="525" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWV-4s-wCQ">
+                                <rect key="frame" x="64" y="425" width="247" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="zIM-0G-6D7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Privacy Policy"/>
+                                <connections>
+                                    <action selector="privacyPress:" destination="gsd-7E-Aiu" eventType="touchUpInside" id="e1r-hC-Ivd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BWV-4s-wCQ" firstAttribute="centerX" secondItem="vw1-ZH-Ra4" secondAttribute="centerX" id="27K-ND-Gk5"/>
+                            <constraint firstItem="Ega-f6-5vZ" firstAttribute="centerX" secondItem="vw1-ZH-Ra4" secondAttribute="centerX" id="6pT-jh-zEa"/>
+                            <constraint firstItem="Ega-f6-5vZ" firstAttribute="top" secondItem="MBC-vd-EI8" secondAttribute="bottom" constant="8" id="8Bb-x1-aZd"/>
+                            <constraint firstItem="frR-76-PJg" firstAttribute="top" secondItem="f6i-0i-D7a" secondAttribute="bottom" constant="8" id="ATN-1p-HxD"/>
+                            <constraint firstItem="MBC-vd-EI8" firstAttribute="top" secondItem="PvP-PX-6He" secondAttribute="bottom" constant="20" id="KB8-UT-6TV"/>
+                            <constraint firstItem="f6i-0i-D7a" firstAttribute="top" secondItem="Q79-0o-iKP" secondAttribute="bottom" constant="8" id="KME-Jt-BTU"/>
+                            <constraint firstItem="wRH-Dv-vx7" firstAttribute="centerX" secondItem="vw1-ZH-Ra4" secondAttribute="centerX" id="PLK-OH-EnM"/>
+                            <constraint firstItem="f6i-0i-D7a" firstAttribute="trailing" secondItem="vw1-ZH-Ra4" secondAttribute="trailingMargin" id="c0d-3C-MfQ"/>
+                            <constraint firstItem="wRH-Dv-vx7" firstAttribute="top" secondItem="Ega-f6-5vZ" secondAttribute="bottom" constant="8" id="jXI-hZ-eTN"/>
+                            <constraint firstItem="bpY-cq-gyw" firstAttribute="top" secondItem="wRH-Dv-vx7" secondAttribute="bottom" constant="8" id="jzc-WP-xCK"/>
+                            <constraint firstItem="Q79-0o-iKP" firstAttribute="centerX" secondItem="vw1-ZH-Ra4" secondAttribute="centerX" id="mGT-1l-bvs"/>
+                            <constraint firstItem="Q79-0o-iKP" firstAttribute="top" secondItem="BWV-4s-wCQ" secondAttribute="bottom" constant="8" id="uRz-E5-62b"/>
+                            <constraint firstItem="MBC-vd-EI8" firstAttribute="centerX" secondItem="vw1-ZH-Ra4" secondAttribute="centerX" id="vWx-mT-5e3"/>
+                            <constraint firstItem="bpY-cq-gyw" firstAttribute="centerX" secondItem="vw1-ZH-Ra4" secondAttribute="centerX" id="vmM-F5-car"/>
+                            <constraint firstItem="f6i-0i-D7a" firstAttribute="centerX" secondItem="vw1-ZH-Ra4" secondAttribute="centerX" id="z9K-tv-40K"/>
+                            <constraint firstItem="f6i-0i-D7a" firstAttribute="leading" secondItem="vw1-ZH-Ra4" secondAttribute="leadingMargin" id="zqT-Uj-Box"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="feR-2w-rfT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4216.8000000000002" y="-961.16941529235385"/>
         </scene>
         <!--Listings-->
         <scene sceneID="kcC-KZ-ax9">
@@ -1346,18 +1491,31 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="28"/>
                                 <color key="backgroundColor" red="0.7725490196" green="0.019607843140000001" blue="0.047058823530000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="dgX-XB-x9f">
+                                <rect key="frame" x="140" y="552" width="94" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="94" id="Srm-pq-6dM"/>
+                                    <constraint firstAttribute="height" constant="29" id="t3h-lm-zbE"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="stepperStepped:" destination="T5x-E4-suS" eventType="valueChanged" id="mG0-rK-Ca0"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
                             <constraint firstItem="kfR-W3-bTF" firstAttribute="trailing" secondItem="fEP-kz-NSi" secondAttribute="trailing" id="4bK-Au-018"/>
                             <constraint firstItem="fEP-kz-NSi" firstAttribute="top" secondItem="kfR-W3-bTF" secondAttribute="bottom" id="82a-Bk-yBi"/>
                             <constraint firstItem="nhf-Xk-SIq" firstAttribute="top" secondItem="2Nd-dw-4GN" secondAttribute="bottom" constant="7" id="8N9-QY-DwV"/>
+                            <constraint firstItem="dgX-XB-x9f" firstAttribute="top" secondItem="nhf-Xk-SIq" secondAttribute="bottom" constant="8" id="BDH-PY-Lg2"/>
                             <constraint firstItem="kfR-W3-bTF" firstAttribute="leading" secondItem="iiq-d9-Yy4" secondAttribute="leading" id="Bj9-dP-Zls"/>
                             <constraint firstAttribute="trailing" secondItem="kfR-W3-bTF" secondAttribute="trailing" id="Df3-2V-hgu"/>
                             <constraint firstItem="dUZ-sT-43a" firstAttribute="centerX" secondItem="2Nd-dw-4GN" secondAttribute="centerX" id="DvB-nc-CiE"/>
                             <constraint firstItem="2Nd-dw-4GN" firstAttribute="leading" secondItem="iiq-d9-Yy4" secondAttribute="leadingMargin" constant="36" id="FYN-rZ-X5n"/>
                             <constraint firstItem="fEP-kz-NSi" firstAttribute="leading" secondItem="dUZ-sT-43a" secondAttribute="leading" id="HTd-V2-IT8"/>
                             <constraint firstItem="nhf-Xk-SIq" firstAttribute="leading" secondItem="iiq-d9-Yy4" secondAttribute="leadingMargin" constant="92" id="Hxd-DW-UAQ"/>
+                            <constraint firstItem="dgX-XB-x9f" firstAttribute="centerX" secondItem="iiq-d9-Yy4" secondAttribute="centerX" id="Ipm-ww-BF9"/>
                             <constraint firstItem="fEP-kz-NSi" firstAttribute="trailing" secondItem="dUZ-sT-43a" secondAttribute="trailing" id="N7v-ox-f81"/>
                             <constraint firstItem="kfR-W3-bTF" firstAttribute="top" secondItem="iiq-d9-Yy4" secondAttribute="top" id="Sym-Ta-5Ks"/>
                             <constraint firstItem="fEP-kz-NSi" firstAttribute="top" secondItem="vzp-p6-PJ7" secondAttribute="bottom" constant="8" id="aPB-I5-64N"/>
@@ -1371,6 +1529,7 @@
                         <outlet property="datePickerView" destination="dUZ-sT-43a" id="NWA-mi-d6u"/>
                         <outlet property="priceLabel" destination="nhf-Xk-SIq" id="NLL-5K-WCv"/>
                         <outlet property="priceSlider" destination="2Nd-dw-4GN" id="C4T-uw-C0K"/>
+                        <outlet property="priceStepper" destination="dgX-XB-x9f" id="h9J-jN-bZo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YJu-Fd-KZy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1400,11 +1559,12 @@
     </scenes>
     <resources>
         <image name="chatIcon" width="32" height="32"/>
+        <image name="info" width="32" height="32"/>
         <image name="profileIcon" width="32" height="32"/>
         <image name="red" width="835" height="588"/>
         <image name="ticketIcon" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6bO-0b-3Ck"/>
+        <segue reference="OBt-n9-Lv7"/>
     </inferredMetricsTieBreakers>
 </document>

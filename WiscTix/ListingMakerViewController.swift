@@ -14,6 +14,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
     @IBOutlet var datePickerView: UIPickerView!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var priceSlider: UISlider!
+    @IBOutlet var priceStepper: UIStepper!
     
     var dateList = [Game]()
     var sport: Sport!
@@ -33,6 +34,11 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         self.datePickerView.selectRow(0, inComponent: 0, animated: true)
     }
     
+    @IBAction func stepperStepped(_ sender: Any) {
+        self.priceLabel.text = "$" + String(Int(self.priceStepper.value))
+        self.price = Int(self.priceStepper.value)
+        self.priceSlider.value = Float(self.priceStepper.value)
+    }
     func getGames() {
         let ref = FIRDatabase.database().reference()
         self.dateList.removeAll()
@@ -94,6 +100,7 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
     @IBAction func priceChanged(_ sender: Any) {
         self.priceLabel.text = "$" + String(Int(self.priceSlider.value))
         self.price = Int(self.priceSlider.value)
+        self.priceStepper.value = Double(self.priceSlider.value)
     }
     
     func createListing() {

@@ -30,6 +30,7 @@
 		028478981E120B3B00CC4A03 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028478971E120B3B00CC4A03 /* Conversation.swift */; };
 		0284789A1E120EB300CC4A03 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028478991E120EB300CC4A03 /* PostViewController.swift */; };
 		0284789C1E15AA2100CC4A03 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284789B1E15AA2100CC4A03 /* ProfileViewController.swift */; };
+		02F20B831E241E3300D1CCC7 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F20B821E241E3300D1CCC7 /* InfoViewController.swift */; };
 		B97C8CE0B2B40F294F281EBC /* Pods_WiscTixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D131EC4B1CEADFE571EAB3C9 /* Pods_WiscTixTests.framework */; };
 		E1296F3E0B78F71FD4BDAF25 /* Pods_WiscTixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7077EA4E8C7E0875DA342FDC /* Pods_WiscTixUITests.framework */; };
 		ECF35F26CB7F1E95EC8D1A31 /* Pods_WiscTix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */; };
@@ -83,6 +84,7 @@
 		028478971E120B3B00CC4A03 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		028478991E120EB300CC4A03 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		0284789B1E15AA2100CC4A03 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		02F20B821E241E3300D1CCC7 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		13A74635B8F541A22E1A5FD6 /* Pods-WiscTixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTixTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTixTests/Pods-WiscTixTests.release.xcconfig"; sourceTree = "<group>"; };
 		1C8A2F512C7082E2A698CB4F /* Pods-WiscTix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiscTix.release.xcconfig"; path = "Pods/Target Support Files/Pods-WiscTix/Pods-WiscTix.release.xcconfig"; sourceTree = "<group>"; };
 		3D3B37AAB47A469538D70965 /* Pods_WiscTix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WiscTix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				0284789B1E15AA2100CC4A03 /* ProfileViewController.swift */,
+				02F20B821E241E3300D1CCC7 /* InfoViewController.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				028478981E120B3B00CC4A03 /* Conversation.swift in Sources */,
 				0284788B1E11799B00CC4A03 /* ListingMakerViewController.swift in Sources */,
 				026A50BC1E10C30A001FFDC1 /* SignupViewController.swift in Sources */,
+				02F20B831E241E3300D1CCC7 /* InfoViewController.swift in Sources */,
 				0284789A1E120EB300CC4A03 /* PostViewController.swift in Sources */,
 				020C92541E1C12E600D9C3B7 /* WelcomeViewController.swift in Sources */,
 				0284789C1E15AA2100CC4A03 /* ProfileViewController.swift in Sources */,
