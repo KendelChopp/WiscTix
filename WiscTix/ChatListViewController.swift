@@ -18,6 +18,8 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     var refreshControl: UIRefreshControl!
     var userID: String!
     var username: String!
+    var unread = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.userID = FIRAuth.auth()?.currentUser?.uid
@@ -26,6 +28,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         self.conversationTableView.dataSource = self
         self.conversationTableView.delegate = self
         self.conversationTableView.rowHeight = 90
+        self.conversationTableView.allowsMultipleSelectionDuringEditing = false
         self.getUserInfo()
        // self.loadConversations()
         refreshControl = UIRefreshControl()
@@ -60,6 +63,10 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 let backItem = UIBarButtonItem()
                 backItem.title = "Back"
                 navigationItem.backBarButtonItem = backItem
+                if (convo.isRead == false) {
+                    self.unread -= 1
+                    UIApplication.shared.applicationIconBadgeNumber = self.unread
+                }
                 //vc.conversationID = convo.conversationID
                 vc.senderId = FIRAuth.auth()?.currentUser?.uid
                 vc.senderDisplayName = self.username
@@ -86,7 +93,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         let ref = FIRDatabase.database().reference()
         let convoRef = ref.child("users").child(FIRAuth.auth()!.currentUser!.uid).child("conversations")
         //var conversationID = [String]()
-     
+        self.unread = 0
         convoRef.queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
             let enumerator = snapshot.children
           
@@ -97,6 +104,9 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                     if let id = rest["id"] as? String, let name = rest["name"] as? String, let read = rest["read"] as? Bool{
                         
                         //conversationID.append(id)
+                        if (!read) {
+                            self.unread += 1
+                        }
                         let conversation = Conversation()
                         conversation.conversationID = id
                         conversation.name = name
@@ -121,6 +131,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                                 conversation.notificationID = notID
                                  self.Conversations.append(conversation)
                             }*/
+                            UIApplication.shared.applicationIconBadgeNumber = self.unread
                             self.Conversations.sort { $0.isRead && !$1.isRead }
                             self.conversationTableView.reloadData()
                             if (self.refreshControl.isRefreshing) {self.refreshControl.endRefreshing()}
@@ -137,6 +148,26 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
   
     @IBAction func logoutPressed(_ sender: Any) {
         try! FIRAuth.auth()?.signOut()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            self.deleteConversation(convo: self.Conversations[indexPath.row])
+            self.Conversations.remove(at: indexPath.row)
+            self.conversationTableView.reloadData()
+        }
+    }
+    
+    
+    func deleteConversation(convo: Conversation) {
+        let ref = FIRDatabase.database().reference()
+        ref.child("conversations").child(convo.conversationID).setValue(nil)
+        ref.child("users").child(convo.userID).child("conversations").child(self.userID).setValue(nil)
+        ref.child("users").child(self.userID).child("conversations").child(convo.userID).setValue(nil)
     }
     
     

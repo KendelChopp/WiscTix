@@ -39,9 +39,15 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
         self.messageRef = FIRDatabase.database().reference().child("conversations").child(self.conversation.conversationID).child("messages")
         self.observeMessages()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "flag"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(sendEmail))
+        
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let ref = FIRDatabase.database().reference()
         ref.child("users").child(self.senderId).child("conversations").child(self.conversation.userID).child("read").setValue(true)
-       
+      
     }
     private func addMessage(withId id: String, name: String, text: String) {
         if let message = JSQMessage(senderId: id, displayName: name, text: text) {
@@ -62,10 +68,23 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
         JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
         
         finishSendingMessage() // 5
-        
-        OneSignal.postNotification(["contents": ["en": text!], "headings" : ["en" : self.senderDisplayName],"include_player_ids": self.conversation.notificationIDs!])
         let ref = FIRDatabase.database().reference()
-    ref.child("users").child(conversation.userID).child("conversations").child(self.senderId).child("read").setValue(false)
+    ref.child("users").child(conversation.userID).child("conversations").child(self.senderId).child("read").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let read = snapshot.value as? Bool {
+                if (read) {
+                OneSignal.postNotification(["contents": ["en": text!], "headings" : ["en" : self.senderDisplayName], "ios_badgeType" : "Increase", "ios_badgeCount" : 1, "include_player_ids": self.conversation.notificationIDs!])
+                    
+                } else {
+                    OneSignal.postNotification(["contents": ["en": text!], "headings" : ["en" : self.senderDisplayName], "include_player_ids": self.conversation.notificationIDs!])
+                    
+                }
+            }
+       ref.child("users").child(self.conversation.userID).child("conversations").child(self.senderId).child("read").setValue(false)
+        })
+        
+        
+        
+    
     }
     
     func sendEmail() {
@@ -105,6 +124,7 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
             if let id = messageData["senderId"] as String!, let name = messageData["senderName"] as String!, let text = messageData["text"] as String!, text.characters.count > 0 {
                 self.addMessage(withId: id, name: name, text: text)
                 let ref = FIRDatabase.database().reference()
+                
                     ref.child("users").child(self.senderId).child("conversations").child(self.conversation.userID).child("read").setValue(true)
                 ref.child("users").child(self.senderId).child("conversations").child(self.conversation.userID).child("recentMessage").setValue(text)
                 ref.child("users").child(self.conversation.userID).child("conversations").child(self.senderId).child("recentMessage").setValue(text)
@@ -113,6 +133,14 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
                 print("Error! Could not decode message data")
             }
         })
+       
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.messageRef.removeAllObservers()
+      
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
