@@ -735,6 +735,7 @@
 				CODE_SIGN_ENTITLEMENTS = WiscTix/WiscTix.entitlements;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
 				INFOPLIST_FILE = WiscTix/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kchopp.WiscTix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -750,6 +751,7 @@
 				CODE_SIGN_ENTITLEMENTS = WiscTix/WiscTix.entitlements;
 				DEVELOPMENT_TEAM = N8GFC63WGF;
 				INFOPLIST_FILE = WiscTix/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kchopp.WiscTix;
 				PRODUCT_NAME = "$(TARGET_NAME)";

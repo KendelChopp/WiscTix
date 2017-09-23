@@ -5,6 +5,8 @@
 //  Created by Kendel Chopp on 12/26/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller to list all chats the user is currently in
+//
 
 import UIKit
 import FirebaseDatabase
@@ -30,7 +32,6 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         self.conversationTableView.rowHeight = 90
         self.conversationTableView.allowsMultipleSelectionDuringEditing = false
         self.getUserInfo()
-       // self.loadConversations()
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
@@ -48,12 +49,11 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         self.loadConversations()
        // self.tabBarController?.tabBar.isHidden = false
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
       // self.tabBarController?.tabBar.isHidden = true
         self.hidesBottomBarWhenPushed = false
     }
-    
-//conversationID, senderId, senderDisplayName, senderName
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.hidesBottomBarWhenPushed = true
@@ -85,9 +85,11 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         //nav?.backgroundColor = UIColor(red:0.77, green:0.02, blue:0.05, alpha:1.0)
         nav?.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-      
     }
     
+    /*
+     * Grab all user's conversation from Firebase
+     */
     func loadConversations(){
         self.Conversations.removeAll()
         let ref = FIRDatabase.database().reference()
@@ -150,10 +152,10 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         try! FIRAuth.auth()?.signOut()
     }
     
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             self.deleteConversation(convo: self.Conversations[indexPath.row])
@@ -162,14 +164,15 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
+    /*
+     * Remove conversation from the database
+     */
     func deleteConversation(convo: Conversation) {
         let ref = FIRDatabase.database().reference()
         ref.child("conversations").child(convo.conversationID).setValue(nil)
         ref.child("users").child(convo.userID).child("conversations").child(self.userID).setValue(nil)
         ref.child("users").child(self.userID).child("conversations").child(convo.userID).setValue(nil)
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.conversationTableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
@@ -183,13 +186,18 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         return cell
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.Conversations.count
-       
     }
+    
+    /*
+     * Grab the user's username from Firebase
+     */
     func getUserInfo()  {
         let ref = FIRDatabase.database().reference().child("users").child(FIRAuth.auth()!.currentUser!.uid)
         

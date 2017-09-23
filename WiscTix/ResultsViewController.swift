@@ -5,6 +5,8 @@
 //  Created by Kendel Chopp on 12/31/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller which shows search results 
+//
 
 import UIKit
 import FirebaseAuth
@@ -12,9 +14,6 @@ import FirebaseDatabase
 
 class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    
-    
-    
     @IBOutlet var resultsTableView: UITableView!
     var game: Game!
     var sortMethod: SortMethod!
@@ -34,11 +33,9 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
         resultsTableView.addSubview(refreshControl)
         self.navigationItem.title = "Listings"
-       self.loadTickets()
-        // Do any additional setup after loading the view.
+        self.loadTickets()
     }
 
-    //resultsPickSegue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.hidesBottomBarWhenPushed = true
         if (segue.identifier == "resultsPickSegue") {
@@ -55,19 +52,20 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         if ( self.resultsTableView.indexPathForSelectedRow != nil) {
             self.resultsTableView.deselectRow(at: self.resultsTableView.indexPathForSelectedRow!, animated: false)
         }
-        
-        
     }
     
     func refresh(sender:AnyObject) {
         self.loadTickets()
     }
     
-    
+    /*
+     * List tickets with given parameters from Firebase
+     */
     func loadTickets() {
         let ref = FIRDatabase.database().reference().child("sports").child(game.sport.rawValue).child(game.date).child("posts")
         
@@ -119,23 +117,21 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
                     }
                 }
             }
-            
-
         })
-        
-    
     }
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tickets.count ?? 0
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 111
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.resultsTableView.dequeueReusableCell(withIdentifier: "listingCell", for: indexPath) as! TicketListingCell
         let listing = tickets[indexPath.row]
@@ -150,10 +146,6 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         return cell
     }
-    
-    
-    
-    
     
 }
 

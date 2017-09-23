@@ -5,20 +5,15 @@
 //  Created by Kendel Chopp on 1/9/17.
 //  Copyright © 2017 Kendel Chopp. All rights reserved.
 //
+//  View controller to show information about WiscTix
+//
 
 import UIKit
 
 class InfoViewController: UIViewController {
 
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func twitterPress(_ sender: Any) {
@@ -47,9 +42,7 @@ class InfoViewController: UIViewController {
         }
     }
 
-    @IBAction func susuSchwaberPress(_ sender: Any) {
-       
-    }
+
     @IBAction func privacyPress(_ sender: Any) {
         let url = URL(string: "https://wisctix.com/privacypolicy")!
         if #available(iOS 10.0, *) {

@@ -5,6 +5,8 @@
 //  Created by Kendel Chopp on 12/29/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller to view your personal profile information
+//
 
 import UIKit
 import FirebaseAuth
@@ -13,8 +15,6 @@ import OneSignal
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
-    
     @IBOutlet var titleItem: UINavigationItem!
     @IBOutlet var listingsTableView: UITableView!
     
@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.present(vc, animated: true, completion: nil)
         
     }
+    
     @IBOutlet var joinDateLabel: UILabel!
     @IBOutlet var numPostsLabel: UILabel!
     var userID: String!
@@ -52,8 +53,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
         listingsTableView.addSubview(refreshControl)
-        // Do any additional setup after loading the view.
     }
+    
     func refresh(sender:AnyObject) {
         self.loadTickets { (idList) in
             self.getListings(idList: idList)
@@ -63,14 +64,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidAppear(_ animated: Bool) {
         let nav = self.navigationController?.navigationBar
         nav?.isTranslucent = false
-        
-        //nav?.backgroundColor = UIColor(red:0.77, green:0.02, blue:0.05, alpha:1.0)
         nav?.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
     }
-    
-    
-    
+
     @IBAction func deleteAccountPressed(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {(action) in
@@ -83,12 +80,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    
+    /*
+     * Delete the user's account from the Firebase database
+     */
     func deleteAccount() {
         let uid = FIRAuth.auth()?.currentUser?.uid
         let ref = FIRDatabase.database().reference()
-        
-        
         self.deletePosts()
         self.loadConversations { (convoList, userList) in
                 self.deleteConversations(convoList: convoList, userList: userList, uid: uid!)
@@ -108,6 +105,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.present(vc, animated: true, completion: nil)
     }
     
+    /*
+     * Remove all of the user's conversations from Firebase
+     */
     func deleteConversations(convoList: [String], userList: [String], uid: String) {
         let ref = FIRDatabase.database().reference()
         for user in userList {
@@ -118,6 +118,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    /*
+     * Remove all of the user's ticket listings from Firebase
+     */
     func deletePosts() {
         let ref = FIRDatabase.database().reference()
         for post in self.listings {
@@ -130,14 +133,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         if ( self.listingsTableView.indexPathForSelectedRow != nil) {
             self.listingsTableView.deselectRow(at: self.listingsTableView.indexPathForSelectedRow!, animated: false)
         }
-        
-        // self.tabBarController?.tabBar.isHidden = false
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        // self.tabBarController?.tabBar.isHidden = true
-        self.hidesBottomBarWhenPushed = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.hidesBottomBarWhenPushed = false
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -161,6 +161,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         return cell
     }
+    
+    /*
+     * Grab all of the user's ticket listings from Firebase
+     */
     func loadTickets(completion:@escaping (Array<String>) -> Void) -> Void {
         let ref = FIRDatabase.database().reference()
         var idList = [String]()
@@ -202,8 +206,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 111
     }
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.hidesBottomBarWhenPushed = true
         if (segue.identifier == "profilePostPickSegue") {
@@ -222,6 +224,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
 
     }
+    
     func getListings(idList: [String]) {
     
         let ref = FIRDatabase.database().reference().child("posts")
@@ -255,6 +258,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
     }
+    
+    /*
+     * Get user's name and date joined to display on profile
+     */
     func getUserInfo()  {
         let ref = FIRDatabase.database().reference().child("users").child(FIRAuth.auth()!.currentUser!.uid)
         
@@ -268,7 +275,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         })
-        
     }
     
     

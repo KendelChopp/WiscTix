@@ -5,6 +5,8 @@
 //  Created by Kendel Chopp on 12/25/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller which displays all available tickets
+//
 
 import UIKit
 import FirebaseDatabase
@@ -16,7 +18,6 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var ticketsTableView: UITableView!
     var refreshControl: UIRefreshControl!
-    
     
     var userID: String!
     var tickets = [Listing]()
@@ -32,8 +33,7 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
-        ticketsTableView.addSubview(refreshControl) // not required when using UITableViewController
-        // Do any additional setup after loading the view.
+        ticketsTableView.addSubview(refreshControl)
     }
 
     func refresh(sender:AnyObject) {
@@ -44,11 +44,9 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         if ( self.ticketsTableView.indexPathForSelectedRow != nil) {
             self.ticketsTableView.deselectRow(at: self.ticketsTableView.indexPathForSelectedRow!, animated: false)
         }
-        
-   
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
-        
         self.hidesBottomBarWhenPushed = false
     }
     
@@ -56,12 +54,15 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tickets.count ?? 0
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 111
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.ticketsTableView.dequeueReusableCell(withIdentifier: "listingCell", for: indexPath) as! TicketListingCell
         let listing = tickets[indexPath.row]
@@ -74,7 +75,6 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         if (listing.userID == self.userID) {
             cell.yourPostLabel.isHidden = false
         }
-        
         return cell
     }
     
@@ -83,6 +83,9 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         UserDefaults.standard.set(false, forKey: "loggedIn")
     }
     
+    /*
+     * Get a list of the tickets from Firebase
+     */
     func loadTickets() {
       self.tickets.removeAll()
         let ref = FIRDatabase.database().reference()
@@ -117,7 +120,9 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         ref.removeAllObservers()
     }
     
-  
+    /*
+     * Send user to the ListingsMakerViewController when creating a new ticket listing
+     */
     func newPost(completion:@escaping (UIAlertController) -> Void) -> Void {
         let actionSheet = UIAlertController(title: "Sport", message: "What sport do you have a ticket for?", preferredStyle: .actionSheet)
         
@@ -140,30 +145,17 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
          vc.sport = Sport.basketball
          self.present(vc, animated: true, completion: nil)
          }))*/
-        
-        
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     
     }
     
     @IBAction func addPostPressed(_ sender: Any) {
-
         self.newPost { (vc) in
             vc.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-
             self.present(vc, animated: true, completion: nil)
         }
-        
     }
 
-    
-    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postVc") as! PostViewController
-        vc.posterID = self.tickets[indexPath.row].userID
-        vc.posterName = self.tickets[indexPath.row].name
-        self.present(vc, animated: true, completion: nil)
-    }*/
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let nav = self.navigationController?.navigationBar
@@ -174,8 +166,9 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    self.hidesBottomBarWhenPushed = true
+        self.hidesBottomBarWhenPushed = true
         if (segue.identifier == "postPickSegue") {
            
             if let vc = segue.destination as? PostViewController {
@@ -190,9 +183,5 @@ class ListingsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
-    
-    
-    
-    
     
 }

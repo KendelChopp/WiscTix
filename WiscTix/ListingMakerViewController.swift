@@ -5,12 +5,15 @@
 //  Created by Kendel Chopp on 12/26/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller displayed when posting a new ticket for sale
+//
 
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
 class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     @IBOutlet var datePickerView: UIPickerView!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var priceSlider: UISlider!
@@ -26,9 +29,8 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         datePickerView.delegate = self
         datePickerView.dataSource = self
         self.getUserName()
-        //getGames()
-        // Do any additional setup after loading the view.
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         getGames()
         self.datePickerView.selectRow(0, inComponent: 0, animated: true)
@@ -39,6 +41,10 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         self.price = Int(self.priceStepper.value)
         self.priceSlider.value = Float(self.priceStepper.value)
     }
+    
+    /*
+     * List out the remaining games for which tickets can be posted
+     */
     func getGames() {
         let ref = FIRDatabase.database().reference()
         self.dateList.removeAll()
@@ -76,10 +82,6 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return dateList[row].date + " (" + dateList[row].opponent + ")"
     }
-
-    @IBAction func cancelPressed(_ sender: Any) {
-        
-    }
   
     @IBAction func donePressed(_ sender: Any) {
         let sportString = sport.rawValue
@@ -104,6 +106,9 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         self.priceStepper.value = Double(self.priceSlider.value)
     }
     
+    /*
+     * Create a new ticket in the Firebase database
+     */
     func createListing() {
         let sportString = sport.rawValue
         let opponent = self.dateList[self.datePickerView.selectedRow(inComponent: 0)].opponent as String
@@ -133,6 +138,9 @@ class ListingMakerViewController: UIViewController, UIPickerViewDelegate, UIPick
         self.present(vc, animated: true, completion: nil)
     }
     
+    /*
+     * Gett the user's username
+     */
     func getUserName()  {
         let ref = FIRDatabase.database().reference().child("users").child(FIRAuth.auth()!.currentUser!.uid)
       

@@ -5,15 +5,14 @@
 //  Created by Kendel Chopp on 12/31/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller for searching for tickets
+//
 
 import UIKit
 import FirebaseDatabase
 
 class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    
-    
-    
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var datePicker: UIPickerView!
     @IBOutlet var sportPicker: UIPickerView!
@@ -35,10 +34,11 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.sportPicker.delegate = self
         self.sportPicker.dataSource = self
         self.loadSports()
-        
-        // Do any additional setup after loading the view.
     }
-    //date opponent time
+    
+    /*
+     * load the sports with games remaining
+     */
     func loadSports() {
         let ref = FIRDatabase.database().reference().child("sports")
         ref.queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
@@ -98,7 +98,6 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         if pickerView.tag == 0 {
             return sportsList.count
         }
-        
         return dateList[sport]?.count ?? 0
     }
     
@@ -110,17 +109,15 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.hidesBottomBarWhenPushed = false
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let nav = self.navigationController?.navigationBar
         nav?.isTranslucent = false
-        
-        //nav?.backgroundColor = UIColor(red:0.77, green:0.02, blue:0.05, alpha:1.0)
         nav?.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.hidesBottomBarWhenPushed = true
         if (segue.identifier == "searchToTableSegue") {
@@ -136,7 +133,5 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             }
         }
     }
-    
-    
     
 }

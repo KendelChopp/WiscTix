@@ -5,6 +5,8 @@
 //  Created by Kendel Chopp on 12/25/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller used to sign up new users
+//
 
 import UIKit
 import FirebaseAuth
@@ -16,11 +18,21 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var emailTextField: SpecialTextField!
     @IBOutlet var passwordTextField: SpecialTextField!
     @IBOutlet var confirmPasswordTextField: SpecialTextField!
-    
     @IBOutlet var signUpButton: UIButton!
     var dataRef: FIRDatabaseReference!
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        dataRef = FIRDatabase.database().reference()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
+        self.signUpButton.layer.cornerRadius = 10
+        self.navigationItem.title = "Sign Up"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,13 +43,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.confirmPasswordTextField.setTextBorder(color: UIColor.lightGray)
     }
     
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if let text = textField as? SpecialTextField {
             text.setTextBorder(color: UIColor.red)
         }
     }
-    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField as? SpecialTextField {
@@ -45,18 +55,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    /*
+     * Send user to the terms web page
+     */
     @IBAction func termsPressed(_ sender: Any) {
-        let url = URL(string: "https://wisctix.com/privacypolicy")!
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
-        }
-    }
-    
-
-    
-    @IBAction func privacyPressed(_ sender: Any) {
         let url = URL(string: "https://wisctix.com/terms")!
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -65,18 +67,17 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
- 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dataRef = FIRDatabase.database().reference()
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        confirmPasswordTextField.delegate = self
-        self.signUpButton.layer.cornerRadius = 10
-        self.navigationItem.title = "Sign Up"
-        
-        // Do any additional setup after loading the view.
+
+    /*
+     * Send user to the privacy policy web page
+     */
+    @IBAction func privacyPressed(_ sender: Any) {
+        let url = URL(string: "https://wisctix.com/privacypolicy")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -94,19 +95,21 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
 
     @IBAction func signUpPressed(_ sender: Any) {
-        
         signUp()
-        
     }
     
+    /*
+     * Sign up the user using the specified credentials
+     */
     func signUp() {
     
-        //Check to make sure the credentials are legit
+        //Check to make sure the credentials are valid
         
         if !(isValidEmail(testStr: emailTextField.text!)) {
             showError(errorMessage: "Please enter a valid email @wisc.edu.")
@@ -120,12 +123,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             showError(errorMessage: "The passwords you entered do not match.")
             return
         }
-/*        var notID = "DEFAULT_ID"
-        OneSignal.idsAvailable({ (notifierId, pushToken) in
-            notID = notifierId!
-        })*/
         var token = emailTextField.text!.components(separatedBy: "@")
         let name = token[0]
+        
         //Create the user
         let today = NSDate()
         let calendar = NSCalendar.current
@@ -159,7 +159,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    
     func isValidPassword(password: String) -> Bool {
         if password.characters.count < 6 || password.characters.count > 25 {
             return false
@@ -172,7 +171,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             return false
         }
         return true
-        
     }
     
     func showError(errorMessage: String) {
@@ -182,16 +180,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func isValidEmail(testStr:String) -> Bool {
-        //return true
-        
-       
-         
-         let emailRegEx = "[A-Z0-9a-z._%+-]+@wisc.edu"
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@wisc.edu"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
-         
-        
     }
 
 }

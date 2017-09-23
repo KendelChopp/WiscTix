@@ -5,6 +5,9 @@
 //  Created by Kendel Chopp on 12/26/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller for chatting with other users
+//
+
 
 import FirebaseDatabase
 import JSQMessagesViewController
@@ -20,14 +23,12 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
     private var messageRef: FIRDatabaseReference!
     private var newMessageRefHandle: FIRDatabaseHandle?
     
-   // var notificationID: String!
-    
     var senderName: String? {
         didSet {
             title = senderName
         }
     }
-      var messages = [JSQMessage]()
+    var messages = [JSQMessage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +40,6 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
         self.messageRef = FIRDatabase.database().reference().child("conversations").child(self.conversation.conversationID).child("messages")
         self.observeMessages()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "flag"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(sendEmail))
-        
-       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,12 +48,16 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
         ref.child("users").child(self.senderId).child("conversations").child(self.conversation.userID).child("read").setValue(true)
       
     }
+    
     private func addMessage(withId id: String, name: String, text: String) {
         if let message = JSQMessage(senderId: id, displayName: name, text: text) {
             messages.append(message)
         }
     }
     
+    /*
+     * Send message info to the firebase database and send a notification
+     */
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let itemRef = messageRef.childByAutoId()
         let messageItem = [
@@ -81,12 +84,11 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
             }
        ref.child("users").child(self.conversation.userID).child("conversations").child(self.senderId).child("read").setValue(false)
         })
-        
-        
-        
-    
     }
     
+    /*
+     * Send an email to report a user
+     */
     func sendEmail() {
         let actionSheet = UIAlertController(title: "Report User", message: "Please confirm that you would like to report this user.", preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Report", style: .destructive, handler: {(action) in
@@ -97,9 +99,11 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
             
         }))
         self.present(actionSheet, animated: true, completion: nil)
-        
     }
     
+    /*
+     * Report the conversation
+     */
     func sendReport() {
         let mailVC = MFMailComposeViewController()
         mailVC.mailComposeDelegate = self
@@ -114,6 +118,9 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
         self.dismiss(animated: true, completion: nil)
     }
     
+    /*
+     * Listen for new incoming messages
+     */
     private func observeMessages() {
         messageRef = FIRDatabase.database().reference().child("conversations").child(self.conversation.conversationID).child("messages")
         let messageQuery = messageRef.queryLimited(toLast:25)
@@ -133,14 +140,11 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
                 print("Error! Could not decode message data")
             }
         })
-       
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.messageRef.removeAllObservers()
-      
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -179,9 +183,11 @@ class ChatViewController: JSQMessagesViewController, MFMailComposeViewController
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.row]
     }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
+    
     private func setupOutgoingBubble() -> JSQMessagesBubbleImage {
         let bubbleImageFactory = JSQMessagesBubbleImageFactory()
         return bubbleImageFactory!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleRed())

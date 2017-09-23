@@ -5,6 +5,8 @@
 //  Created by Kendel Chopp on 12/25/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller displayed when users with an account want to log in
+//
 
 import UIKit
 import FirebaseAuth
@@ -28,7 +30,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.loginButton.layer.cornerRadius = 10
         self.navigationItem.title = "Login"
         
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,7 +49,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             text.setTextBorder(color: UIColor.lightGray)
         }
     }
-    //https://wisctix.com/privacypolicy
+    
+    /*
+    * Send user to the privacy policy web page
+    */
     @IBAction func privacyPressed(_ sender: Any) {
         let url = URL(string: "https://wisctix.com/privacypolicy")!
         if #available(iOS 10.0, *) {
@@ -57,7 +61,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             UIApplication.shared.openURL(url)
         }
     }
-    //https://wisctix.com/terms
+    
+    /*
+     * Send user to the terms web page
+     */
     @IBAction func termsPressed(_ sender: Any) {
         let url = URL(string: "https://wisctix.com/terms")!
         if #available(iOS 10.0, *) {
@@ -94,7 +101,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.login()
     }
     
-    
+    /*
+     * Check the user's login info and log them in or tell them their info is wrong
+     */
     func login() {
         guard emailTextField.text != "", passwordTextField.text != "" else {return}
         
@@ -132,7 +141,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     }
     
-    
+    /*
+     * Alert the user as to a particular error
+     */
     func showError(errorMessage: String) {
         let alert = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.destructive, handler: nil))
@@ -140,6 +151,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
+//
+// Class intended for making multiple of specially formatted text fields
+//
 class SpecialTextField: UITextField {
     var currentBorder: CALayer?
     func setTextBorder(color: UIColor) {

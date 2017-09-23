@@ -5,6 +5,8 @@
 //  Created by Kendel Chopp on 12/26/16.
 //  Copyright © 2016 Kendel Chopp. All rights reserved.
 //
+//  View controller to display individual ticket listings
+//
 
 import UIKit
 import FirebaseDatabase
@@ -38,11 +40,6 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
         self.getUserName()
         self.navigationItem.title = self.listing.sport.rawValue
         self.posterLabel.text = "Post By: \(self.listing.name!)"
-        
-        
-       
-        
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy-HH:mm"
         let dateString = "\(self.listing.date!)-\(self.listing.time!)"
@@ -71,10 +68,7 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
             self.deleteButton.isHidden = false
         }
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "flag"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(sendEmail))
-        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(compose))
-
     }
-    
 
     override func viewDidAppear(_ animated: Bool) {
         self.drawTickets()
@@ -83,6 +77,10 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    /*
+     * Confirm that the user wants to report a ticket listing
+     */
     func sendEmail() {
         let actionSheet = UIAlertController(title: "Report Ticket", message: "Please confirm that you would like to report this ticket listing.", preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Report", style: .destructive, handler: {(action) in
@@ -96,6 +94,9 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
 
     }
     
+    /*
+     * Create a new email for the user to send and report the ticket
+     */
     func sendReport() {
         let mailVC = MFMailComposeViewController()
         mailVC.mailComposeDelegate = self
@@ -106,6 +107,9 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
         present(mailVC, animated: true, completion: nil)
     }
    
+    /*
+     * Make the outline of a ticket stub
+     */
     func drawTickets() {
         
         //draw dashed line
@@ -170,11 +174,15 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
     @IBAction func messagePressed(_ sender: Any) {
         self.composeMessage()
     }
+    
     func compose(_ sender: Any) {
        // let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeTabBar") as! UITabBarController
         self.composeMessage()
     }
     
+    /*
+     * Start a conversation with the ticket seller
+     */
     func composeMessage() {
         
         if (self.userID == self.listing.userID) {
@@ -196,6 +204,9 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
         
     }
     
+    /*
+     * Create the message in Firebase
+     */
     func composeConfirm() {
         let ref = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()!.currentUser!.uid
@@ -238,6 +249,9 @@ class PostViewController: UIViewController, MFMailComposeViewControllerDelegate 
         self.present(actionSheet, animated: true, completion: nil)
     }
     
+    /*
+     * Remove the post from Firebase
+     */
     func deletePost() {
         let ref = FIRDatabase.database().reference()
         ref.child("posts").child(self.listing.postID).removeValue()
